@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+
+    <property name="LOG_HOME" value="E:/logs"/>
+    <!-- 控制台输出日志 -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %clr([%-5level]) %clr([%thread]){cyan} %clr([%logger]){magenta} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出 到文件-->
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/log.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<FileNamePattern>./logs/log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<MaxHistory>7</MaxHistory>
+            <MaxFileSize>100MB</MaxFileSize>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>%d{HH:mm:ss.SSS} [%-5level] [%thread] [%logger] - %msg%n</Pattern>
+		</encoder>
+    </appender>
+    <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.73.100:8082</destination>
+        <!-- encoder is required -->
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="stash"/>
+        <appender-ref ref="Console"/>
+        <appender-ref ref="File"/>
+    </root>
+</configuration>
