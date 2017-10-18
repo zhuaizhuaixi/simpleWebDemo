@@ -5,7 +5,7 @@
 
 </head>
 <body>
-<img src="/img/QQ20171017224941.png" />
+<img src="/image/QQ20171017224941.png" />
 </body>
 <script type="text/javascript">
 
