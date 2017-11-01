@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("sign")
-public class fileController {
+public class FileController {
     @RequestMapping(value = "/index")
     public String index() {
         return "index";
@@ -18,7 +18,7 @@ public class fileController {
 
     @RequestMapping(value = "/upload")
     public String upload(@RequestParam("text") String str, @RequestParam("image") MultipartFile image) {
-        System.out.println(image);
+        System.out.println(str + " " + image);
         return "index";
     }
 

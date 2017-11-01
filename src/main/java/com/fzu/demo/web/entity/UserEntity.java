@@ -1,4 +1,4 @@
-package com.fzu.demo.entity;
+package com.fzu.demo.web.entity;
 
 import com.fzu.demo.enums.UserSexEnum;
 

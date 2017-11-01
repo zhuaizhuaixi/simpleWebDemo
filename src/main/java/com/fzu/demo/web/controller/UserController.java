@@ -1,52 +1,54 @@
 package com.fzu.demo.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fzu.demo.entity.UserEntity;
-import com.fzu.demo.mapper.UserMapper;
+import com.fzu.demo.common.JSONResult;
+import com.fzu.demo.web.entity.CourseEntity;
+import com.fzu.demo.web.entity.UserEntity;
+import com.fzu.demo.web.mapper.CourseMapper;
+import com.fzu.demo.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
-public class UserController{
-	@Autowired
-	private UserMapper userMapper;
-	
-	@RequestMapping(value = "/getUsers")
+public class UserController {
+    @Autowired
+    private IUserService userService;
+
+    @RequestMapping(value = "/getUsers")
     @ResponseBody
-	public JSONObject getUsers() {
-        Map<String,Object> result = new HashMap();
-        List<UserEntity> users=userMapper.getAll();
-        result.put("users", users);
-        return new JSONObject(result);
+    public JSONObject getUsers() {
+        JSONResult result = JSONResult.build();
+        List<UserEntity> users = userService.getAllUser();
+        result.set("users", users);
+        return result.getJSON();
     }
-	
+
     @RequestMapping("/getUser")
-    public UserEntity getUser(Long id) {
-    	UserEntity user=userMapper.getOne(id);
-        return user;
+    @ResponseBody
+    public JSONObject getUser(Long id, String userName) {
+        JSONResult result = JSONResult.build();
+        List<UserEntity> user = userService.getUser(id, userName);
+        result.set("users", user);
+        return result.getJSON();
     }
-    
+
     @RequestMapping("/add")
     public void save(UserEntity user) {
-    	userMapper.insert(user);
+        userService.insert(user);
     }
-    
-    @RequestMapping(value="update")
+
+    @RequestMapping(value = "update")
     public void update(UserEntity user) {
-    	userMapper.update(user);
+        userService.update(user);
     }
-    
-    @RequestMapping(value="/delete/{id}")
+
+    @RequestMapping(value = "/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
-    	userMapper.delete(id);
+        userService.delete(id);
     }
-    
-    
 }

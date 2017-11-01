@@ -1,7 +1,8 @@
-package com.fzu.demo.mapper;
+package com.fzu.demo.web.mapper;
 
-import com.fzu.demo.entity.UserEntity;
+import com.fzu.demo.web.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ import java.util.List;
 public interface UserMapper {
 	
 	List<UserEntity> getAll();
-	
-	UserEntity getOne(Long id);
+
+	List<UserEntity> getOne(@Param("id") Long id, @Param("userName") String userName);
 
 	void insert(UserEntity user);
 
