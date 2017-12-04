@@ -5,14 +5,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.logging.Logger;
+
 /**
  * Created by zzx on 2017/9/18.
  */
 @Controller
 @RequestMapping("sign")
 public class FileController {
+
     @RequestMapping(value = "/index")
-    public String index() {
+    public String index(HttpServletRequest request) {
+        request.setAttribute("a","123123");
         return "index";
     }
 

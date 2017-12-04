@@ -1,8 +1,8 @@
 # simpleWebDemo
 
-##springboot+jsp+mybatis
+## springboot+jsp+mybatis
 
-####该项目所有配置在resources下.
+#### 该项目所有配置在resources下.
 
 - 数据库:MySQL
 - 服务器、框架：springboot
