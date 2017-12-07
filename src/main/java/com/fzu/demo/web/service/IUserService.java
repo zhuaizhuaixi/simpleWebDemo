@@ -26,6 +26,15 @@ public interface IUserService {
     List<UserEntity> getUser(Long id, String userName);
 
     /**
+     * 获得单个用户
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 用户实体
+     */
+    UserEntity getUserByUsernameAndPassword( String username,String password);
+
+    /**
      * 新增用户
      *
      * @param user 新增用户实体

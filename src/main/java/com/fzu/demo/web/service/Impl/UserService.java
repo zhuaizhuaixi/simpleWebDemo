@@ -1,10 +1,13 @@
 package com.fzu.demo.web.service.Impl;
 
+import com.fzu.demo.common.Md5Util;
+import com.fzu.demo.common.XGameConstant;
 import com.fzu.demo.web.entity.UserEntity;
 import com.fzu.demo.web.mapper.UserMapper;
 import com.fzu.demo.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.provider.MD5;
 
 import java.util.List;
 
@@ -26,6 +29,11 @@ public class UserService implements IUserService {
     @Override
     public List<UserEntity> getUser(Long id, String userName) {
         return userMapper.getOne(id, userName);
+    }
+
+    @Override
+    public UserEntity getUserByUsernameAndPassword(String username, String password) {
+        return userMapper.getUser(username, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
     }
 
     @Override

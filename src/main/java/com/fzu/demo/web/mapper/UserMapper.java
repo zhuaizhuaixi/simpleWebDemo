@@ -8,15 +8,17 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-	
-	List<UserEntity> getAll();
 
-	List<UserEntity> getOne(@Param("id") Long id, @Param("userName") String userName);
+    List<UserEntity> getAll();
 
-	void insert(UserEntity user);
+    List<UserEntity> getOne(@Param("id") Long id, @Param("userName") String userName);
 
-	void update(UserEntity user);
+    UserEntity getUser(@Param("username") String username, @Param("password") String password);
 
-	void delete(Long id);
+    void insert(UserEntity user);
+
+    void update(UserEntity user);
+
+    void delete(Long id);
 
 }

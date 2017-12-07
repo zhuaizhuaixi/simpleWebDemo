@@ -103,12 +103,11 @@ public class AlgorithmUtils {
         System.out.println(itemUserCollection.toString());
         //计算相似度矩阵【稀疏】
         Set<Entry<String, Set<String>>> entrySet = itemUserCollection.entrySet();
-        Iterator<Entry<String, Set<String>>> iterator = entrySet.iterator();
-        while(iterator.hasNext()){
-            Set<String> commonUsers = iterator.next().getValue();
+        for (Entry<String, Set<String>> anEntrySet : entrySet) {
+            Set<String> commonUsers = anEntrySet.getValue();
             for (String user_u : commonUsers) {
                 for (String user_v : commonUsers) {
-                    if(user_u.equals(user_v)){
+                    if (user_u.equals(user_v)) {
                         continue;
                     }
                     sparseMatrix[userID.get(user_u)][userID.get(user_v)] += 1;//计算用户u与用户v都有正反馈的物品总数

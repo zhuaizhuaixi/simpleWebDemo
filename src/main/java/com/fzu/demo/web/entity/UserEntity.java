@@ -1,73 +1,82 @@
 package com.fzu.demo.web.entity;
 
-import com.fzu.demo.enums.UserSexEnum;
-
 import java.io.Serializable;
+import java.util.Date;
 
+/**
+ * @author zzx
+ */
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String userName;
-	private String passWord;
-	private UserSexEnum userSex;
-	private String nickName;
 
-	public UserEntity() {
-		super();
-	}
+	private Integer id;
 
-	public UserEntity(String userName, String passWord, UserSexEnum userSex) {
-		super();
-		this.passWord = passWord;
-		this.userName = userName;
-		this.userSex = userSex;
-	}
+	private String username;
 
-	public Long getId() {
+	private String nickname;
+
+	private String sex;
+
+	private Date birthday;
+
+	private String password;
+
+	private byte[] photo;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getPassWord() {
-		return passWord;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
-	public UserSexEnum getUserSex() {
-		return userSex;
+	public String getSex() {
+		return sex;
 	}
 
-	public void setUserSex(UserSexEnum userSex) {
-		this.userSex = userSex;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "userName " + this.userName + ", pasword " + this.passWord + "sex " + userSex.name();
+	public String getPassword() {
+		return password;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 }
