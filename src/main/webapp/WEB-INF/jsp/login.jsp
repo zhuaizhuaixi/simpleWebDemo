@@ -12,11 +12,11 @@
 
 <div class="container">
 
-    <div class="form-signin" style="width: 50%;margin: 0 auto;padding: 50px 0 0 0">
+    <div class="form-signin" style="width: 50%;margin: 0 auto;padding: 50px 0 0 0;text-align: center">
         <h2 class="form-signin-heading" style="text-align: center">Xgame</h2>
         <input type="text" id="username" class="form-control" placeholder="请输入用户名" required autofocus>
         <input type="password" id="password" class="form-control" placeholder="请输入密码" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin: 40px 0px" onclick="login()">登录</button>
+        <button class="smal-btn" type="submit" style="margin: 40px 0px;text-align: center;width:60%" onclick="login()">登录</button>
     </div>
 </div> <!-- /container -->
 </body>

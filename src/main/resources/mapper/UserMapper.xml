@@ -4,6 +4,8 @@
 
     <resultMap id="ResultMap" type="com.fzu.demo.web.entity.UserEntity"></resultMap>
 
+    <resultMap id="tagMap" type="com.fzu.demo.web.entity.TagEntity"></resultMap>
+
     <select id="getAll" resultMap="ResultMap">
         SELECT *
         FROM users
@@ -24,6 +26,39 @@
         WHERE username like #{username}
             AND password = #{password}
     </select>
+
+    <select id="getUserByID" resultMap="ResultMap">
+        SELECT *
+        FROM gp_user
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="com.fzu.demo.web.entity.UserEntity">
+        UPDATE
+        gp_user
+        SET
+        nickname = #{nickname},sex = #{sex},birthday = #{birthday}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="changePassword" parameterType="com.fzu.demo.web.entity.UserEntity">
+        UPDATE
+        gp_user
+        SET
+        password = #{newPassword}
+        WHERE
+        username = #{username}
+    </update>
+
+    <update id="changePhoto" parameterType="com.fzu.demo.web.entity.UserEntity">
+          UPDATE
+          gp_user
+          SET
+          photo = #{photo,jdbcType=BLOB}
+          WHERE
+          id = #{id}
+    </update>
 
     <insert id="insert" parameterType="com.fzu.demo.web.entity.UserEntity">
         INSERT INTO
@@ -50,7 +85,5 @@
         WHERE
         id =#{id}
     </delete>
-
-    <cache/>
 
 </mapper>

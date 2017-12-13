@@ -2,6 +2,7 @@ package com.fzu.demo.web.service;
 
 import com.fzu.demo.web.entity.UserEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +33,44 @@ public interface IUserService {
      * @param password 密码
      * @return 用户实体
      */
-    UserEntity getUserByUsernameAndPassword( String username,String password);
+    UserEntity getUserByUsernameAndPassword(String username, String password);
+
+
+    /**
+     * 通过ID获得用户信息
+     *
+     * @param id 用户ID
+     * @return 用户实体
+     */
+    UserEntity getUserByID(Integer id);
+
+    /**
+     * 更新用户信息
+     *
+     * @param nickname 昵称
+     * @param sex      性别
+     * @param birthday 生日
+     * @param userID   用户ID
+     */
+    void updateUser(String nickname, String sex, Date birthday, Integer userID);
+
+    /**
+     * 修改密码
+     *
+     * @param username    用户名
+     * @param newPassword 新密码
+     */
+    void changePassword(String username, String newPassword);
+
+    /**
+     * 修改头像
+     *
+     * @param userID 用户ID
+     * @param photo  头像字节数组
+     */
+    void changePhoto(Integer userID, byte[] photo);
+
+
 
     /**
      * 新增用户

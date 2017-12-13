@@ -2,15 +2,12 @@ package com.fzu.demo.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fzu.demo.common.JSONResult;
-import com.fzu.demo.common.Md5Util;
 import com.fzu.demo.common.XGameConstant;
 import com.fzu.demo.web.entity.UserEntity;
 import com.fzu.demo.web.service.IUserService;
-import com.fzu.demo.web.service.Impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.math.BigDecimal;
 
 /**
  * Created by zzx on 2017/12/4.
@@ -78,29 +74,17 @@ public class IndexController {
     @RequestMapping("icon")
     public void getIcon(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        FileInputStream fis = null;
-        OutputStream os = null;
-        byte[] buffer = null;
-        try {
-            fis = new FileInputStream("E://springboot/webtest/src/main/webapp/image/user.png");
-            os = response.getOutputStream();
-            int count = 0;
-            buffer = new byte[1024 * 8];
-            while ((count = fis.read(buffer)) != -1) {
-                os.write(buffer, 0, count);
-                os.flush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
 
-        byte[] data = buffer;
+        UserEntity user = userService.getUserByID(userID);
+
         response.setContentType("img/jpeg");
         response.setCharacterEncoding("utf-8");
         try {
 
             OutputStream outputStream = response.getOutputStream();
-            InputStream in = new ByteArrayInputStream(data);
+            InputStream in = new ByteArrayInputStream(user.getPhoto());
             int len = 0;
             byte[] buf = new byte[1024];
             while ((len = in.read(buf, 0, 1024)) != -1) {
@@ -112,4 +96,6 @@ public class IndexController {
             e.printStackTrace();
         }
     }
+
+
 }

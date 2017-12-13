@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fzu.demo.web.mapper.TagMapper">
+
+    <resultMap id="tagMap" type="com.fzu.demo.web.entity.TagEntity"></resultMap>
+
+    <select id="getAllTags" resultMap="tagMap">
+        SELECT *
+        FROM gp_tag
+    </select>
+
+    <select id="getUserTags" resultMap="tagMap">
+        SELECT *
+        FROM gp_user_tag ut, gp_user u,gp_tag t
+        WHERE
+        ut.userID = u.id AND ut.tagID = t.id AND
+        u.id = #{userID}
+    </select>
+
+    <select id="getTagByName" resultMap="tagMap">
+        SELECT *
+        FROM gp_tag
+        WHERE name like #{name}
+    </select>
+
+    <delete id="deleteAllUserTags" parameterType="Map">
+        DELETE FROM
+        gp_user_tag
+        WHERE
+        userID = #{userID}
+    </delete>
+
+    <insert id="insertTags" parameterType="Map">
+        INSERT INTO gp_user_tag(userID,tagID) values
+        <foreach collection="tags" item="item" index="index" separator=",">
+            (#{userID} , #{item.id})
+        </foreach>
+    </insert>
+
+</mapper>

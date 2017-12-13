@@ -1255,7 +1255,7 @@ a:focus {
  * ---------------
  */
 .form-control {
-  border-radius: 0;
+  /*border-radius: 0;*/
   box-shadow: none;
   border-color: #d2d6de;
 }
@@ -1309,7 +1309,7 @@ a:focus {
 }
 /* Input group */
 .input-group .input-group-addon {
-  border-radius: 0;
+  /*border-radius: 0;*/
   border-color: #d2d6de;
   background-color: #fff;
 }

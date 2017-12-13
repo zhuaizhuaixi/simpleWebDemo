@@ -7,8 +7,8 @@ import com.fzu.demo.web.mapper.UserMapper;
 import com.fzu.demo.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.provider.MD5;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ import java.util.List;
  *         Created by zzx on 2017/11/1.
  */
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -34,6 +34,26 @@ public class UserService implements IUserService {
     @Override
     public UserEntity getUserByUsernameAndPassword(String username, String password) {
         return userMapper.getUser(username, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
+    }
+
+    @Override
+    public UserEntity getUserByID(Integer id) {
+        return userMapper.getUserByID(id);
+    }
+
+    @Override
+    public void updateUser(String nickname, String sex, Date birthday, Integer userID) {
+        userMapper.updateUser(nickname, sex, birthday, userID);
+    }
+
+    @Override
+    public void changePassword(String username, String newPassword) {
+        userMapper.changePassword(username, Md5Util.sign(newPassword + XGameConstant.PASSWORD_KEY));
+    }
+
+    @Override
+    public void changePhoto(Integer userID, byte[] photo) {
+        userMapper.changePhoto(userID, photo);
     }
 
     @Override

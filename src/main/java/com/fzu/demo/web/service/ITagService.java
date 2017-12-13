@@ -1,0 +1,44 @@
+package com.fzu.demo.web.service;
+
+import com.fzu.demo.web.entity.TagEntity;
+
+import java.util.List;
+
+/**
+ * @author zzx
+ *         Created by zzx on 2017/12/12.
+ */
+public interface ITagService {
+
+    /**
+     * 获得系统所有标签
+     *
+     * @return 标签列表
+     */
+    List<TagEntity> getAllTags();
+
+    /**
+     * 获得用户标签
+     *
+     * @param userID 用户ID
+     * @return 标签列表
+     */
+    List<TagEntity> getUserTags(Integer userID);
+
+    /**
+     * 通过标签名获得标签
+     *
+     * @param tagName 标签名
+     * @return 标签
+     */
+    TagEntity getTagByName(String tagName);
+
+    /**
+     * 更新用户标签
+     *
+     * @param tags   新的标签列表
+     * @param userID 用户ID
+     */
+    void updateUserTags(Integer userID, List<TagEntity> tags);
+
+}

@@ -6,12 +6,12 @@
         <!-- Sidebar user panel -->
         <div class="user-panel panel-bottom">
             <div class="pull-left image">
-                <img src="/image/user.png" class="img-circle" alt="User Image">
+                <img src="/icon" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <div class="form-group input-box">
                     <div class="form-control select-box" >
-                        <option>zzx</option>
+                        <option>${sessionScope.xgame.nickname}</option>
                     </div>
                 </div>
                 <div class="select-mask mt-10">
@@ -53,7 +53,7 @@
             <li class="treeview font18"><a href="#">  <span>我的足迹</span>
                 <span class="pull-right-container"> <i class="icon icon-fanhui-right pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="icon icon-yuankongxin"></i>购买记录</a></li>
+                    <li><a href="#"><i class="icon icon-yuankongxin"></i> 购买记录</a></li>
                     <li><a href="#"><i class="icon icon-yuankongxin"></i> 浏览记录</a></li>
                     <li><a href="#"><i class="icon icon-yuankongxin"></i> 登录记录</a></li>
                 </ul>
