@@ -12,86 +12,94 @@
 </head>
 <body style="margin: 0 auto;">
 
-<div id="app" style="width: 80%;margin:  auto;text-align: center">
-    <template style="padding: 10px 0 ">
-        <el-checkbox-group v-model="checkedTags" :max="100">
-            <el-checkbox-button v-for="tag in tags" :label="tag" :key="tag">{{tag}}</el-checkbox-button>
-        </el-checkbox-group>
+<div id="app" style="width: 90%;margin:  auto;text-align: center">
+    <template>
+        <el-table :data="games" border style="width: 100%">
+            <el-table-column prop="name" label="游戏名" width="300"></el-table-column>
+            <el-table-column prop="price" label="价格"></el-table-column>
+            <el-table-column label="操作">
+                <template scope="scope">
+                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看详情</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-col :span="24" class="toolbar">
+            <el-pagination layout="total,prev, pager, next,jumper "
+                           @current-change="function(val){handleCurrentChange(val,'asdf');}"
+                           :page-size="10" :total="total"
+                           style="float:right;">
+            </el-pagination>
+        </el-col>
     </template>
-    <div style="text-align: center">
-        <button type="button" class="smal-btn" onclick="setTags()" style="width:40%;">修改</button>
-    </div>
 </div>
 </body>
 <script type="text/javascript">
 
+    var pageSize = 15;
+
     var config = {
         el: '#app',
         data: {
-            checkedTags: [],
-            tags: []
+            games: [],
+            total: 0,
+            page: 1
+        },
+        methods: {
+            handleEdit: function (index, row) {
+                layer.open({
+                    type: 2,
+                    title: row.name + "游戏详情",
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['90%', '90%'],
+                    content: ctx + '/homepage/game?id=' + row.id
+                });
+            },
+            handleCurrentChange: function (val, str) {
+                config.methods.getData(val, pageSize);
+            },
+            getData: function (page, pageSize) {
+                config.data.page = page;
+                $.ajax({
+                    url: ctx + "/homepage/gameList?page=" + page + "&pageSize=" + pageSize,
+                    contentType: "application/json; charset=utf-8",
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null && data.code == 1) {
+                            config.data.games = data.games;
+                        } else {
+                            layer.alert(data.note);
+                        }
+                    }
+                });
+            }
+        },
+        mounted:function () {
+            config.methods.getData(1, pageSize);
         }
     };
 
     $(function () {
-        getAllTags();
-        getUserTags();
         new Vue(config);
-
+        getAllGames();
     });
 
-    function getAllTags() {
+    function getAllGames() {
         $.ajax({
-            url: ctx + "/user/allTags",
+            url: ctx + "/homepage/allGames",
             contentType: "application/json; charset=utf-8",
             type: "post",
             dataType: "json",
             success: function (data) {
                 if (data != null && data.code == 1) {
-                    config.data.tags = data.tags;
+                    config.data.total = data.games.length;
                 } else {
                     layer.alert(data.note);
                 }
             }
         });
     }
-
-    function getUserTags() {
-        $.ajax({
-            url: ctx + "/user/userTags",
-            contentType: "application/json; charset=utf-8",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                if (data != null && data.code == 1) {
-                    config.data.checkedTags = data.tags;
-                } else {
-                    layer.alert(data.note);
-                }
-            }
-        });
-    }
-
-    function setTags() {
-        $.ajax({
-            url: ctx + "/user/updateTags",
-            type: "post",
-            data: {
-                checkedTags: config.data.checkedTags
-            },
-            success: function (data) {
-                if (data != null && data.code == 1) {
-                    window.parent.layer.alert("修改成功", function () {
-                        window.parent.location.reload();
-                    });
-
-                } else {
-                    layer.alert(data.note);
-                }
-            }
-        });
-    }
-
-
 </script>
 </html>

@@ -1,4 +1,4 @@
-package com.fzu.demo.web.service.Impl;
+package com.fzu.demo.web.service.impl;
 
 import com.fzu.demo.common.Md5Util;
 import com.fzu.demo.common.XGameConstant;
@@ -29,6 +29,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<UserEntity> getUser(Long id, String userName) {
         return userMapper.getOne(id, userName);
+    }
+
+    @Override
+    public UserEntity getUserByUsername(String username){
+        return userMapper.getUserByUsername(username);
     }
 
     @Override

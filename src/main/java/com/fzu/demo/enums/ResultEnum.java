@@ -11,6 +11,7 @@ public enum ResultEnum {
     LOGINOUT_SUCCESS(1, 60003, "登出成功"),
     CHANGE_PWD_SUCCESS(1, 60004, "密码修改成功"),
     CHANGE_PWD_FAIL(-1, 60005, "密码错误，密码修改失败"),
+    USERNAME_EXIST(-1, 60006, "该用户名已被占用"),
 
 
     UNKNOW_ERROR(-1, 90001, "操作失败"),

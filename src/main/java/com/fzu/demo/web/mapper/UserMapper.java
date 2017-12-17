@@ -39,6 +39,13 @@ public interface UserMapper {
     UserEntity getUser(@Param("username") String username, @Param("password") String password);
 
     /**
+     * 通过用户名获得用户
+     * @param username 用户名
+     * @return 用户实体
+     */
+    UserEntity getUserByUsername(@Param("username") String username);
+
+    /**
      * 通过ID获得用户
      *
      * @param id 用户ID

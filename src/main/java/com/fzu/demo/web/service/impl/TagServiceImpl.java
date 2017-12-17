@@ -1,4 +1,4 @@
-package com.fzu.demo.web.service.Impl;
+package com.fzu.demo.web.service.impl;
 
 import com.fzu.demo.web.entity.TagEntity;
 import com.fzu.demo.web.mapper.TagMapper;
@@ -25,6 +25,11 @@ public class TagServiceImpl implements ITagService {
     @Override
     public List<TagEntity> getUserTags(Integer userID) {
         return tagMapper.getUserTags(userID);
+    }
+
+    @Override
+    public List<TagEntity> getGameTags(Integer gameID) {
+        return tagMapper.getGameTags(gameID);
     }
 
     @Override

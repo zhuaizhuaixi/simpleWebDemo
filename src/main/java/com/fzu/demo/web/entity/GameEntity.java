@@ -13,7 +13,7 @@ public class GameEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer ID;
+    private Integer id;
 
     private String name;
 
@@ -21,12 +21,12 @@ public class GameEntity implements Serializable {
 
     private double price;
 
-    public Integer getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

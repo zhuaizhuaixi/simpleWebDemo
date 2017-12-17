@@ -27,6 +27,12 @@
             AND password = #{password}
     </select>
 
+    <select id="getUserByUsername" resultMap="ResultMap">
+        SELECT *
+        FROM gp_user
+        WHERE username like #{username}
+    </select>
+
     <select id="getUserByID" resultMap="ResultMap">
         SELECT *
         FROM gp_user
@@ -60,12 +66,12 @@
           id = #{id}
     </update>
 
-    <insert id="insert" parameterType="com.fzu.demo.web.entity.UserEntity">
+    <insert id="insert" parameterType="com.fzu.demo.web.entity.UserEntity" >
         INSERT INTO
-        users
-        (userName,passWord,user_sex)
+        gp_user
+        (username,nickname,password,sex)
         VALUES
-        (#{userName}, #{passWord}, #{userSex})
+        (#{username},#{nickname}, #{password}, #{sex})
     </insert>
 
     <update id="update" parameterType="com.fzu.demo.web.entity.UserEntity">

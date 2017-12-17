@@ -27,6 +27,13 @@ public interface IUserService {
     List<UserEntity> getUser(Long id, String userName);
 
     /**
+     * 通过用户名获得用户
+     * @param username 用户名
+     * @return 用户实体
+     */
+    UserEntity getUserByUsername(String username);
+
+    /**
      * 获得单个用户
      *
      * @param username 用户名

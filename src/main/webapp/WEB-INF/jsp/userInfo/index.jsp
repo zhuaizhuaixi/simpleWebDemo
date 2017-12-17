@@ -104,7 +104,7 @@
             type: 2,
             skin: 'layui-layer-demo', //样式类名
             closeBtn: 1, //不显示关闭按钮
-            anim: 2,
+            anim: 1,
             fixed: false, //不固定
             title: "修改密码",
             area: ['380px', '260px'],
@@ -118,7 +118,7 @@
             type: 2,
             skin: 'layui-layer-demo', //样式类名
             closeBtn: 1, //不显示关闭按钮
-            anim: 2,
+            anim: 1,
             fixed: false, //不固定
             title: "修改头像",
             area: ['380px', '130px'],
@@ -132,7 +132,7 @@
             type: 2,
             skin: 'layui-layer-demo', //样式类名
             closeBtn: 1, //不显示关闭按钮
-            anim: 2,
+            anim: 1,
             fixed: false, //不固定
             title: "标签设置",
             area: ['380px', '260px'],

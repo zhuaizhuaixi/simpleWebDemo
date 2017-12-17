@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fzu.demo.web.mapper.GameMapper">
+
+    <resultMap id="gameMap" type="com.fzu.demo.web.entity.GameEntity"></resultMap>
+
+    <select id="getAllGames" resultMap="gameMap">
+        SELECT *
+        FROM gp_game
+    </select>
+
+    <select id="getGames" resultMap="gameMap">
+        SELECT *
+        FROM gp_game LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="getGameById" resultMap="gameMap">
+        SELECT *
+        FROM gp_game
+        WHERE id=#{ID}
+    </select>
+
+</mapper>

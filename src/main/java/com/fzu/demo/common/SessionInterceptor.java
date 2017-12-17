@@ -27,7 +27,7 @@ public class SessionInterceptor implements HandlerInterceptor {
         String requestPath = requestURI.substring(contextPath.length());
         String sessionId = request.getRequestedSessionId();
         HttpSession session = request.getSession();
-        if ("/".equals(requestPath) || "/login".equals(requestPath)) {
+        if ("/".equals(requestPath) || "/login".equals(requestPath) || "/initRegister".equals(requestPath) || "/user/allTags".equals(requestPath) || "/register".equals(requestPath)) {
             return true;
         }
         UserEntity user = (UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY);

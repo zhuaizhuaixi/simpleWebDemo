@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 
-body{
+body {
     background-color: #eee;
     margin: 0 auto;
 }
@@ -165,7 +165,7 @@ button, input:not([type="radio"]):not([type="checkbox"]), select {
     border-radius: 50px;
     background-color: #fff;
     position: relative;
-    padding: 16px 18px;;
+    padding: 0px 18px;;
 }
 
 .icon.seach-icon {
@@ -508,6 +508,10 @@ button, input:not([type="radio"]):not([type="checkbox"]), select {
     float: none;
 }
 
+.input-group.register-input-group {
+    padding: 10px 0
+}
+
 .input-group .input-group-addon {
     background-color: #00b4ef;
     border-top-left-radius: 7px;
@@ -521,8 +525,18 @@ button, input:not([type="radio"]):not([type="checkbox"]), select {
     border-bottom-right-radius: 7px;
 }
 
-.smal-btn.info-option{
+.smal-btn.info-option {
     margin: 0 0 0 30px;
+}
+
+.game-star-button{
+    float: right;
+    margin: 0 5px !important;
+}
+.game-buy-button{
+    float: right;
+    margin: 0 5px !important;
+
 }
 
 #photoConfig {

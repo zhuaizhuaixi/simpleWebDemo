@@ -26,6 +26,13 @@ public interface ITagService {
     List<TagEntity> getUserTags(Integer userID);
 
     /**
+     * 获得游戏标签
+     * @param gameID 游戏ID
+     * @return 游戏标签列表
+     */
+    List<TagEntity> getGameTags(Integer gameID);
+
+    /**
      * 通过标签名获得标签
      *
      * @param tagName 标签名

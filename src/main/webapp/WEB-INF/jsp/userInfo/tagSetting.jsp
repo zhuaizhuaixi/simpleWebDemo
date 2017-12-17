@@ -73,6 +73,10 @@
     }
 
     function setTags() {
+        if(config.data.checkedTags.length <3) {
+            layer.alert("请选择至少3个标签。");
+            return;
+        }
         $.ajax({
             url: ctx + "/user/updateTags",
             type: "post",

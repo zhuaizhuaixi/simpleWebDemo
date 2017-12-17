@@ -29,6 +29,13 @@ public interface TagMapper {
     List<TagEntity> getUserTags(@Param("userID") Integer userID);
 
     /**
+     * 获得游戏的标签
+     * @param gameID 游戏ID
+     * @return 游戏标签列表
+     */
+    List<TagEntity> getGameTags(@Param("gameID") Integer gameID);
+
+    /**
      * 通过标签名获得标签
      *
      * @param name 标签名

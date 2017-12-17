@@ -79,4 +79,24 @@ public class UserEntity implements Serializable {
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
+
+	public UserEntity() {
+	}
+
+	public UserEntity(Integer id, String username, String nickname, String sex, Date birthday, String password, byte[] photo) {
+		this.id = id;
+		this.username = username;
+		this.nickname = nickname;
+		this.sex = sex;
+		this.birthday = birthday;
+		this.password = password;
+		this.photo = photo;
+	}
+
+	public UserEntity(String username, String nickname, String sex, String password) {
+		this.username = username;
+		this.nickname = nickname;
+		this.sex = sex;
+		this.password = password;
+	}
 }

@@ -17,6 +17,14 @@
         u.id = #{userID}
     </select>
 
+    <select id="getGameTags" resultMap="tagMap">
+        SELECT *
+        FROM gp_tag t,gp_game_tag gt, gp_game g
+        WHERE
+        gt.gameID = g.id AND gt.tagID = t.id AND
+        g.id = #{gameID}
+    </select>
+
     <select id="getTagByName" resultMap="tagMap">
         SELECT *
         FROM gp_tag
