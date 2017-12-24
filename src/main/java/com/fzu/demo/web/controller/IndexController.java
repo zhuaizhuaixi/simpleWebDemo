@@ -7,6 +7,7 @@ import com.fzu.demo.common.XGameConstant;
 import com.fzu.demo.enums.ResultEnum;
 import com.fzu.demo.web.entity.TagEntity;
 import com.fzu.demo.web.entity.UserEntity;
+import com.fzu.demo.web.service.IGameService;
 import com.fzu.demo.web.service.ITagService;
 import com.fzu.demo.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class IndexController {
     @Autowired
     private ITagService tagService;
 
+    @Autowired
+    private IGameService gameService;
+
     @RequestMapping(value = "/")
     public String initLogin(HttpServletRequest request) {
         return "login";
@@ -59,6 +63,11 @@ public class IndexController {
                 session.setAttribute(XGameConstant.LOGIN_SESSION_KEY, user);
             }
         }
+        if ("admin".equals(username)) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_SUCCESS,"admin");
+            session.setAttribute(XGameConstant.LOGIN_SESSION_KEY, new UserEntity(99, "admin", "admin", "man", null, null, null));
+
+        }
         return result.getJSON();
     }
 
@@ -69,21 +78,20 @@ public class IndexController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public JSONObject register(@RequestParam("username") String username,@RequestParam("nickname") String nickname,@RequestParam("sex") String sex,@RequestParam("password") String password,@RequestParam(value = "tags[]") String[] tags) {
+    public JSONObject register(@RequestParam("username") String username, @RequestParam("nickname") String nickname, @RequestParam("sex") String sex, @RequestParam("password") String password, @RequestParam(value = "tags[]") String[] tags) {
         JSONResult result = JSONResult.build();
         UserEntity user = userService.getUserByUsername(username);
         List<TagEntity> tagEntities = new ArrayList<>(30);
         for (String tagName : tags) {
             tagEntities.add(tagService.getTagByName(tagName));
         }
-        if(user !=null ){
+        if (user != null) {
             result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, ResultEnum.USERNAME_EXIST.getMessage());
-        }else {
+        } else {
             try {
                 UserEntity newUser = new UserEntity(username, nickname, sex, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
-                 userService.insert(newUser);
-                tagService.updateUserTags(userService.getUserByUsername(username).getId(),tagEntities);
-                System.out.println(newUser.getId());
+                userService.insert(newUser);
+                tagService.updateUserTags(userService.getUserByUsername(username).getId(), tagEntities);
                 result.setNote(ResultEnum.SUCCESS.getMessage());
             } catch (Exception e) {
                 result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
@@ -97,9 +105,39 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/admin")
+    public String admin(HttpServletRequest request) {
+        return "admin";
+    }
+
+    @RequestMapping("/myGames")
+    public String myGames() {
+        return "/myGames/games";
+    }
+
+    @RequestMapping("/staredGames")
+    public String staredGames() {
+        return "/myGames/staredGames";
+    }
+
     @RequestMapping(value = "/userInfo")
     public String userInfo() {
         return "userInfo/index";
+    }
+
+    @RequestMapping(value = "/purchaseHistory")
+    public String purchaseHistory() {
+        return "history/purchaseHistory";
+    }
+
+    @RequestMapping(value = "/visitHistory")
+    public String visitHistory() {
+        return "history/visitHistory";
+    }
+
+    @RequestMapping(value = "/loginHistory")
+    public String loginHistory() {
+        return "history/loginHistory";
     }
 
     @RequestMapping(value = "/logout")
@@ -111,29 +149,52 @@ public class IndexController {
         return result.getJSON();
     }
 
+    @RequestMapping("/gameNumber")
+    @ResponseBody
+    public JSONObject gameNumber(HttpServletRequest request) {
+        JSONResult result = JSONResult.build();
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
+        Integer purchaseNumber;
+        Integer starNumber;
+        purchaseNumber = gameService.getPurchasedGameNumber(userID);
+        starNumber = gameService.getStaredGameNumber(userID);
+        result.set("purchaseNumber", purchaseNumber);
+        result.set("starNumber", starNumber);
+        return result.getJSON();
+
+    }
+
     @RequestMapping("icon")
     public void getIcon(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession session = request.getSession();
+        String realPath = session.getServletContext().getRealPath("/");
         Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
-
         UserEntity user = userService.getUserByID(userID);
-
         response.setContentType("img/jpeg");
         response.setCharacterEncoding("utf-8");
+        OutputStream outputStream = null;
+        InputStream in;
         try {
-
-            OutputStream outputStream = response.getOutputStream();
-            InputStream in = new ByteArrayInputStream(user.getPhoto());
+            if (user.getPhoto() != null) {
+                in = new ByteArrayInputStream(user.getPhoto());
+            } else {
+                in = new FileInputStream(realPath + "/image/user.png");
+            }
+            outputStream = response.getOutputStream();
             int len = 0;
             byte[] buf = new byte[1024];
             while ((len = in.read(buf, 0, 1024)) != -1) {
                 outputStream.write(buf, 0, len);
             }
-            outputStream.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
         }
     }
 

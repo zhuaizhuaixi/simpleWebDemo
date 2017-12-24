@@ -27,6 +27,7 @@ public interface ITagService {
 
     /**
      * 获得游戏标签
+     *
      * @param gameID 游戏ID
      * @return 游戏标签列表
      */
@@ -48,4 +49,33 @@ public interface ITagService {
      */
     void updateUserTags(Integer userID, List<TagEntity> tags);
 
+    /**
+     * 更新游戏标签
+     *
+     * @param tags   新的标签列表
+     * @param gameID 游戏ID
+     */
+    void updateGameTags(Integer gameID, List<TagEntity> tags);
+
+    /**
+     * 插入游戏标签
+     *
+     * @param gameID 游戏ID
+     * @param tags   游戏标签列表
+     */
+    void insertGameTags(Integer gameID, List<TagEntity> tags);
+
+    /**
+     * 删除标签
+     *
+     * @param tagID 标签ID
+     */
+    void deleteTag(Integer tagID);
+
+    /**
+     * 新增标签
+     *
+     * @param tagName 标签名
+     */
+    void insertTag(String tagName);
 }

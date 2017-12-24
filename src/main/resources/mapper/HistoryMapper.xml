@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fzu.demo.web.mapper.HistoryMapper">
+
+    <resultMap id="historyMap" type="com.fzu.demo.web.entity.HistoryEntity"></resultMap>
+
+    <select id="getHistory" resultMap="historyMap">
+        SELECT h.*
+        FROM gp_history h,gp_user u
+        WHERE
+        u.id = #{userID} AND h.userID = u.ID AND h.type = #{type} ORDER BY h.date DESC
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="getHistoryCount" resultType="Integer">
+        SELECT count(*)
+        FROM gp_history h,gp_user u
+        WHERE
+        u.id = #{userID} AND h.userID = u.ID AND h.type = #{type}
+    </select>
+
+    <insert id="insertHistory" parameterType="com.fzu.demo.web.entity.HistoryEntity">
+        INSERT INTO
+        gp_history
+        (userID,operation,date,type)
+        VALUES
+        (#{userID},#{operation},#{date},#{type})
+    </insert>
+
+    <delete id="deleteHistory" parameterType="com.fzu.demo.web.entity.HistoryEntity">
+        DELETE FROM
+        gp_history
+        WHERE
+        id = #{historyID}
+    </delete>
+
+</mapper>

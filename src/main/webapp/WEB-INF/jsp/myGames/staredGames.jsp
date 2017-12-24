@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="${ctx}/js/common/element/index.css">
 </head>
 <body style="margin: 0 auto;">
-
+<div class="page-header" style="margin: 10px 0 0;">
+    <label style="padding:0 20px">关注游戏</label>
+</div>
 <div id="app" style="width: 90%;margin:  auto;text-align: center">
+
     <template>
         <el-table :data="games" border style="width: 100%">
             <el-table-column prop="name" label="游戏名" width="300"></el-table-column>
@@ -26,7 +29,7 @@
         <el-col :span="24" class="toolbar">
             <el-pagination layout="total,prev, pager, next,jumper "
                            @current-change="function(val){handleCurrentChange(val,'asdf');}"
-                           :page-size="15" :total="total"
+                           :page-size="10" :total="total"
                            style="float:right;">
             </el-pagination>
         </el-col>
@@ -35,7 +38,7 @@
 </body>
 <script type="text/javascript">
 
-    var pageSize = 15;
+    var pageSize = 10;
 
     var config = {
         el: '#app',
@@ -53,7 +56,10 @@
                     shade: false,
                     maxmin: true, //开启最大化最小化按钮
                     area: ['90%', '90%'],
-                    content: ctx + '/homepage/game?id=' + row.id
+                    content: ctx + '/homepage/game?id=' + row.id,
+                    end: function () {
+                        config.methods.getData(config.data.page, pageSize);
+                    }
                 });
             },
             handleCurrentChange: function (val, str) {
@@ -62,13 +68,13 @@
             getData: function (page, pageSize) {
                 config.data.page = page;
                 $.ajax({
-                    url: ctx + "/homepage/gameList?page=" + page + "&pageSize=" + pageSize,
+                    url: ctx + "/game/myStaredGames?page=" + page + "&pageSize=" + pageSize,
                     contentType: "application/json; charset=utf-8",
                     type: "post",
                     dataType: "json",
                     success: function (data) {
                         if (data != null && data.code == 1) {
-                            config.data.games = data.games;
+                            config.data.games = data.myGames;
                         } else {
                             layer.alert(data.note);
                         }
@@ -76,7 +82,7 @@
                 });
             }
         },
-        mounted:function () {
+        mounted: function () {
             config.methods.getData(1, pageSize);
         }
     };
@@ -88,13 +94,13 @@
 
     function getAllGames() {
         $.ajax({
-            url: ctx + "/homepage/allGames",
+            url: ctx + "/gameNumber",
             contentType: "application/json; charset=utf-8",
             type: "post",
             dataType: "json",
             success: function (data) {
                 if (data != null && data.code == 1) {
-                    config.data.total = data.games.length;
+                    config.data.total = data.starNumber;
                 } else {
                     layer.alert(data.note);
                 }

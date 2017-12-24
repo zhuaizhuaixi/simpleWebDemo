@@ -1,5 +1,6 @@
 package com.fzu.demo.web.service;
 
+import com.fzu.demo.web.entity.HistoryEntity;
 import com.fzu.demo.web.entity.UserEntity;
 
 import java.util.Date;
@@ -28,6 +29,7 @@ public interface IUserService {
 
     /**
      * 通过用户名获得用户
+     *
      * @param username 用户名
      * @return 用户实体
      */
@@ -78,7 +80,6 @@ public interface IUserService {
     void changePhoto(Integer userID, byte[] photo);
 
 
-
     /**
      * 新增用户
      *
@@ -99,4 +100,31 @@ public interface IUserService {
      * @param id 用户id
      */
     void delete(Long id);
+
+    /**
+     * 获得历史记录列表
+     *
+     * @param userID   用户ID
+     * @param type     历史记录类型1、登录记录；2、购买记录；3、浏览记录
+     * @param page     页数
+     * @param pageSize 页大小
+     * @return 历史记录列表
+     */
+    List<HistoryEntity> getHistory(Integer userID, Integer type, Integer page, Integer pageSize);
+
+    /**
+     * 获得历史记录数
+     *
+     * @param userID 用户ID
+     * @param type   历史记录类型1、登录记录；2、购买记录；3、浏览记录
+     * @return 历史记录数
+     */
+    Integer getHistoryCount(Integer userID, Integer type);
+
+    /**
+     * 删除历史记录
+     *
+     * @param historyID 历史记录ID
+     */
+    void deleteHistory(Integer historyID);
 }

@@ -1,9 +1,11 @@
 package com.fzu.demo.web.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fzu.demo.common.JSONResult;
 import com.fzu.demo.common.XGameConstant;
 import com.fzu.demo.enums.ResultEnum;
+import com.fzu.demo.web.entity.HistoryEntity;
 import com.fzu.demo.web.entity.TagEntity;
 import com.fzu.demo.web.entity.UserEntity;
 import com.fzu.demo.web.service.ITagService;
@@ -145,6 +147,19 @@ public class UserController {
         return result.getJSON();
     }
 
+    @RequestMapping("/gameTags")
+    @ResponseBody
+    public JSONObject gameTags(HttpServletRequest request,Integer gameID) {
+        JSONResult result = JSONResult.build();
+        List<String> tagsValue = new ArrayList<>(40);
+        List<TagEntity> tags = tagService.getGameTags(gameID);
+        for (TagEntity tag : tags) {
+            tagsValue.add(tag.getName());
+        }
+        result.set("tags", tagsValue);
+        return result.getJSON();
+    }
+
     @RequestMapping("/updateTags")
     @ResponseBody
     public JSONObject updateTags(HttpServletRequest request, @RequestParam(value = "checkedTags[]") String[] checkedTags) {
@@ -155,7 +170,33 @@ public class UserController {
         for (String tagName : checkedTags) {
             tags.add(tagService.getTagByName(tagName));
         }
-        tagService.updateUserTags(userID,tags);
+        tagService.updateUserTags(userID, tags);
+        return result.getJSON();
+    }
+
+    @RequestMapping("/historyList")
+    @ResponseBody
+    public JSONObject historyList(HttpServletRequest request, Integer type, Integer page, Integer pageSize) {
+        JSONResult result = JSONResult.build();
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
+        List<HistoryEntity> history = userService.getHistory(userID, type, page, pageSize);
+        Integer total = userService.getHistoryCount(userID, type);
+        result.set("history", history);
+        result.set("total", total);
+        return result.getJSON();
+    }
+
+    @RequestMapping("/deleteHistory")
+    @ResponseBody
+    public JSONObject deleteHistory(Integer historyID) {
+        JSONResult result = JSONResult.build();
+        try {
+            userService.deleteHistory(historyID);
+            result.setNote(ResultEnum.HISTORY_DELETE_SUCCESS.getMessage());
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
         return result.getJSON();
     }
 }

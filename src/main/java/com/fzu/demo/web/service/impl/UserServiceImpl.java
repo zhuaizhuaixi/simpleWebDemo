@@ -2,12 +2,17 @@ package com.fzu.demo.web.service.impl;
 
 import com.fzu.demo.common.Md5Util;
 import com.fzu.demo.common.XGameConstant;
+import com.fzu.demo.web.entity.GameEntity;
+import com.fzu.demo.web.entity.HistoryEntity;
 import com.fzu.demo.web.entity.UserEntity;
+import com.fzu.demo.web.mapper.GameMapper;
+import com.fzu.demo.web.mapper.HistoryMapper;
 import com.fzu.demo.web.mapper.UserMapper;
 import com.fzu.demo.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +26,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private HistoryMapper historyMapper;
+
     @Override
     public List<UserEntity> getAllUser() {
         return userMapper.getAll();
@@ -32,13 +40,20 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserEntity getUserByUsername(String username){
+    public UserEntity getUserByUsername(String username) {
         return userMapper.getUserByUsername(username);
     }
 
     @Override
     public UserEntity getUserByUsernameAndPassword(String username, String password) {
-        return userMapper.getUser(username, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
+        UserEntity user = userMapper.getUser(username, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
+        if (user != null) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String operation = "登录系统。";
+            HistoryEntity history = new HistoryEntity(user.getId(), operation, timestamp, XGameConstant.LOGIN_HISTORY);
+            historyMapper.insertHistory(history);
+        }
+        return user;
     }
 
     @Override
@@ -76,4 +91,19 @@ public class UserServiceImpl implements IUserService {
         userMapper.delete(id);
     }
 
+    @Override
+    public List<HistoryEntity> getHistory(Integer userID, Integer type, Integer page, Integer pageSize) {
+        Integer begin = (page - 1) * pageSize;
+        return historyMapper.getHistory(userID, type, begin, pageSize);
+    }
+
+    @Override
+    public Integer getHistoryCount(Integer userID, Integer type){
+        return historyMapper.getHistoryCount(userID, type);
+    }
+
+    @Override
+    public void deleteHistory(Integer historyID) {
+        historyMapper.deleteHistory(historyID);
+    }
 }

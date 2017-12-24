@@ -45,4 +45,33 @@
         </foreach>
     </insert>
 
+    <delete id="deleteAllGameTags" parameterType="Map">
+        DELETE FROM
+        gp_game_tag
+        WHERE
+        gameID = #{gameID}
+    </delete>
+
+    <insert id="insertGameTags" parameterType="Map">
+        INSERT INTO gp_game_tag(gameID,tagID) values
+        <foreach collection="tags" item="item" index="index" separator=",">
+            (#{gameID} , #{item.id})
+        </foreach>
+    </insert>
+
+    <delete id="deleteTag" parameterType="Map">
+        DELETE FROM
+        gp_tag
+        WHERE
+        id = #{tagID}
+    </delete>
+
+    <insert id="insertTag" parameterType="Map">
+        INSERT INTO
+        gp_tag(name)
+         VALUES
+        (#{tagName})
+
+    </insert>
+
 </mapper>

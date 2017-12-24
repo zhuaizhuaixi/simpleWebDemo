@@ -30,6 +30,7 @@ public interface TagMapper {
 
     /**
      * 获得游戏的标签
+     *
      * @param gameID 游戏ID
      * @return 游戏标签列表
      */
@@ -57,4 +58,33 @@ public interface TagMapper {
      * @param userID 用户ID
      */
     void insertTags(@Param("tags") List<TagEntity> tags, @Param("userID") Integer userID);
+
+    /**
+     * 删除所有游戏标签
+     *
+     * @param gameID 游戏ID
+     */
+    void deleteAllGameTags(@Param("gameID") Integer gameID);
+
+    /**
+     * 插入游戏标签
+     *
+     * @param tags   标签列表
+     * @param gameID 游戏ID
+     */
+    void insertGameTags(@Param("tags") List<TagEntity> tags, @Param("gameID") Integer gameID);
+
+    /**
+     * 删除标签
+     *
+     * @param tagID 标签ID
+     */
+    void deleteTag(@Param("tagID") Integer tagID);
+
+    /**
+     * 新增标签
+     *
+     * @param tagName 标签名
+     */
+    void insertTag(@Param("tagName") String tagName);
 }

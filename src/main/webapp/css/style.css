@@ -529,14 +529,22 @@ button, input:not([type="radio"]):not([type="checkbox"]), select {
     margin: 0 0 0 30px;
 }
 
-.game-star-button{
+.game-star-button {
     float: right;
-    margin: 0 5px !important;
+    margin: 5px 5px !important;
 }
-.game-buy-button{
-    float: right;
-    margin: 0 5px !important;
 
+.game-buy-button {
+    float: right;
+    margin: 5px 20px 5px 10px !important;
+
+}
+
+.game-description {
+    width: 90%;
+    height: 30%;
+    font-size: 20px;
+    font-family:"宋体"
 }
 
 #photoConfig {

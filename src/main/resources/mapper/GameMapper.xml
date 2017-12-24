@@ -20,4 +20,102 @@
         WHERE id=#{ID}
     </select>
 
+    <select id="hasPurchasedGame" resultType="Integer">
+        SELECT count(*)
+        FROM gp_purchase
+        WHERE
+        userID = #{userID} AND gameID = #{gameID}
+    </select>
+
+    <insert id="buyGame" parameterType="com.fzu.demo.web.entity.GameEntity">
+        INSERT INTO
+        gp_purchase
+        (userID,gameID,date)
+        VALUES
+        (#{userID},#{gameID}, #{date})
+    </insert>
+
+    <delete id="unBuyGame" parameterType="com.fzu.demo.web.entity.GameEntity">
+        DELETE FROM
+        gp_purchase
+        WHERE
+        userID = #{userID} AND gameID = #{gameID}
+    </delete>
+
+    <select id="hasStaredGame" resultType="Integer">
+        SELECT count(*)
+        FROM gp_user_collect
+        WHERE
+        userID = #{userID} AND gameID = #{gameID}
+    </select>
+
+    <insert id="starGame" parameterType="com.fzu.demo.web.entity.GameEntity">
+        INSERT INTO
+        gp_user_collect
+        (userID,gameID)
+        VALUES
+        (#{userID},#{gameID})
+    </insert>
+
+    <delete id="unStarGame" parameterType="com.fzu.demo.web.entity.GameEntity">
+        DELETE FROM
+        gp_user_collect
+        WHERE
+        userID = #{userID} AND gameID = #{gameID}
+    </delete>
+
+    <select id="getPurchasedGameNumber" resultType="Integer">
+        SELECT count(*)
+        FROM gp_purchase
+        WHERE
+        userID = #{userID}
+    </select>
+
+    <select id="getStaredGameNumber" resultType="Integer">
+        SELECT count(*)
+        FROM gp_user_collect
+        WHERE
+        userID = #{userID}
+    </select>
+
+    <select id="getMyGames" resultMap="gameMap">
+        SELECT g.*
+        FROM gp_game g,gp_purchase p,gp_user u
+        WHERE
+        g.id=p.gameID AND p.userID=u.id AND u.id=#{userID}
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="getStaredGames" resultMap="gameMap">
+        SELECT g.*
+        FROM gp_game g,gp_user_collect p,gp_user u
+        WHERE
+        g.id=p.gameID AND p.userID=u.id AND u.id=#{userID}
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <update id="updateGameInformation" parameterType="com.fzu.demo.web.entity.GameEntity">
+        UPDATE
+        gp_game
+        SET
+        name = #{name} ,description = #{description} , price = #{price} , image = #{image}
+        WHERE
+        id = #{id};
+    </update>
+
+    <delete id="deleteGame" parameterType="com.fzu.demo.web.entity.GameEntity">
+        DELETE FROM gp_game WHERE id = #{gameID};
+        DELETE FROM gp_commend WHERE gameID = #{gameID};
+        DELETE FROM gp_game_tag WHERE gameID = #{gameID};
+        DELETE FROM gp_purchase WHERE gameID = #{gameID};
+        DELETE FROM gp_user_collect WHERE gameID = #{gameID};
+    </delete>
+
+    <insert id="addGame" useGeneratedKeys="true" keyProperty="id"  parameterType="com.fzu.demo.web.entity.GameEntity">
+        INSERT INTO
+        gp_game(name,description,price,image)
+        VALUES
+        (#{name} , #{description} , #{price} , #{image})
+    </insert>
+
 </mapper>

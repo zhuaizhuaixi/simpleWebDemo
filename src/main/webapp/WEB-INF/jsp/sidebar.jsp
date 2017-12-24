@@ -6,7 +6,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel panel-bottom">
             <div class="pull-left image">
-                <img src="/icon" class="img-circle" alt="User Image">
+                <img src="/icon" class="img-circle" style="width:45px;height:45px" alt="User Image">
             </div>
             <div class="pull-left info">
                 <div class="form-group input-box">
@@ -22,24 +22,22 @@
             <div class="user-massage">
                 <div class="massage-list">
                     <p>已购买游戏</p>
-                    <span class="text-chengse" id="currentAnswer">999</span>
+                    <span class="text-chengse" id="purchasedNumber"></span>
                 </div>
                 <div class="massage-list">
                     <p>收藏游戏</p>
-                    <span class="text-chengse" id="noAnswer">44</span>
+                    <span class="text-chengse" id="staredNumber"></span>
                 </div>
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li class="treeview font18"><a href="#">
+            <li class="treeview font18"><a href="#" onclick="goPage('/myGames')">
                 <span class="glyphicon glyphicon-user" style="color: green"></span>
-                <span>我的游戏</span>
-                <span class="pull-right-container"> <span class="label pull-right bg-yellow">99</span> </span> </a>
+                <span>我的游戏</span></a>
             </li>
-            <li class="treeview font18"><a href="#">
+            <li class="treeview font18"><a href="#" onclick="goPage('/staredGames')">
                 <span class="glyphicon glyphicon-star" style="color: gold"></span>
-                <span>关注游戏</span>
-                <span class="pull-right-container"> <span class="label pull-right bg-red">99</span> </span> </a>
+                <span>关注游戏</span></a>
             </li>
             <li class="treeview font18"><a href="#" onclick="goPage('/userInfo')">
                 <span class="glyphicon glyphicon-glyphicon glyphicon-cog" style="color: grey"></span>
@@ -50,12 +48,13 @@
                 <span>我的游戏推荐</span></a>
             </li>
 
-            <li class="treeview font18"><a href="#">  <span>我的足迹</span>
-                <span class="pull-right-container"> <i class="icon icon-fanhui-right pull-right"></i> </span> </a>
+            <li class="treeview font18"><a href="#">
+                <span class="glyphicon glyphicon-list"></span>
+                <span>我的足迹</span>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="icon icon-yuankongxin"></i> 购买记录</a></li>
-                    <li><a href="#"><i class="icon icon-yuankongxin"></i> 浏览记录</a></li>
-                    <li><a href="#"><i class="icon icon-yuankongxin"></i> 登录记录</a></li>
+                    <li><a href="#" onclick="goPage('/purchaseHistory')"><i class="icon icon-yuankongxin"></i> 购买记录</a></li>
+                    <li><a href="#" onclick="goPage('/visitHistory')"><i class="icon icon-yuankongxin"></i> 浏览记录</a></li>
+                    <li><a href="#" onclick="goPage('/loginHistory')"><i class="icon icon-yuankongxin"></i> 登录记录</a></li>
                 </ul>
             </li>
         </ul>
@@ -66,6 +65,28 @@
 <script>
     function goPage(url) {
         $("#centerFrame").attr("src", url);
+    }
+
+
+    $(function () {
+        getGameNumber()
+    });
+
+    function getGameNumber() {
+        $.ajax({
+            url: ctx + "/gameNumber",
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data != null && data.code == 1) {
+                    $("#purchasedNumber").html(data.purchaseNumber);
+                    $("#staredNumber").html(data.starNumber);
+                } else {
+                    layer.alert(data.note);
+                }
+            }
+        });
     }
 
 </script>

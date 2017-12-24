@@ -42,4 +42,25 @@ public class TagServiceImpl implements ITagService {
         tagMapper.deleteAllUserTags(userID);
         tagMapper.insertTags(tags, userID);
     }
+
+    @Override
+    public void updateGameTags(Integer gameID, List<TagEntity> tags){
+        tagMapper.deleteAllGameTags(gameID);
+        tagMapper.insertGameTags(tags, gameID);
+    }
+
+    @Override
+    public void insertGameTags(Integer gameID, List<TagEntity> tags) {
+        tagMapper.insertGameTags(tags, gameID);
+    }
+
+    @Override
+    public void deleteTag(Integer tagID) {
+        tagMapper.deleteTag(tagID);
+    }
+
+    @Override
+    public void insertTag(String tagName) {
+        tagMapper.insertTag(tagName);
+    }
 }

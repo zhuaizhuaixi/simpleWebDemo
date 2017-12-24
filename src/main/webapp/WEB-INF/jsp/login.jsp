@@ -36,7 +36,11 @@
             },
             success: function (data) {
                 if (data != null && data.code == 1) {
-                    window.location.href = "/index";
+                    if(data.note == "admin"){
+                        window.location.href = "/admin";
+                    }else {
+                        window.location.href = "/index";
+                    }
                 } else {
                     layer.alert( data.note);
                 }

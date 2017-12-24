@@ -19,6 +19,8 @@ public class GameEntity implements Serializable {
 
     private String description;
 
+    private String image;
+
     private double price;
 
     public Integer getId() {
@@ -45,11 +47,37 @@ public class GameEntity implements Serializable {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public GameEntity() {
+    }
+
+    public GameEntity(String name, String description, String image, double price) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+    }
+
+    public GameEntity(Integer id, String name, String description, String image, double price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.image = image;
         this.price = price;
     }
 }
