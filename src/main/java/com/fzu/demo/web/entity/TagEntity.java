@@ -28,4 +28,11 @@ public class TagEntity implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+    public TagEntity() {
+    }
+
+    public TagEntity(String name) {
+        this.name = name;
+    }
 }

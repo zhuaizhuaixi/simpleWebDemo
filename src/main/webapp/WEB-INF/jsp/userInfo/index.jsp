@@ -135,7 +135,7 @@
             anim: 1,
             fixed: false, //不固定
             title: "标签设置",
-            area: ['380px', '260px'],
+            area: ['400px', '330px'],
             shadeClose: true, //开启遮罩关闭
             content: ctx + '/user/initTagSetting'
         });

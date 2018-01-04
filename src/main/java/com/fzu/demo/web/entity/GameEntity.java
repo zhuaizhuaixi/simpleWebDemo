@@ -5,6 +5,8 @@ package com.fzu.demo.web.entity;
  */
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * @author zzx
@@ -22,6 +24,10 @@ public class GameEntity implements Serializable {
     private String image;
 
     private double price;
+
+    private String tags;
+
+    private Double recommendIndex;
 
     public Integer getId() {
         return id;
@@ -61,6 +67,22 @@ public class GameEntity implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Double getRecommendIndex() {
+        return recommendIndex;
+    }
+
+    public void setRecommendIndex(Double recommendIndex) {
+        this.recommendIndex = recommendIndex;
     }
 
     public GameEntity() {

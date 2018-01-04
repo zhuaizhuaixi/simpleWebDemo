@@ -128,7 +128,9 @@
         var gameImg = $("#gameImg").val();
         var gamePrice = $("#gamePrice").val();
         var gameDescription = $("#gameDescription").val();
-        if (config.data.checkedTags.length < 3) {
+        if (gamePrice <= 0) {
+            layer.alert("价格不合法。");
+        } else if (config.data.checkedTags.length < 3) {
             layer.alert("请至少选择3个标签。");
         } else {
             $.ajax({

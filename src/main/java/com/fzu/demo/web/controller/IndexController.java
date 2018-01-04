@@ -5,8 +5,10 @@ import com.fzu.demo.common.JSONResult;
 import com.fzu.demo.common.Md5Util;
 import com.fzu.demo.common.XGameConstant;
 import com.fzu.demo.enums.ResultEnum;
+import com.fzu.demo.web.entity.GameEntity;
 import com.fzu.demo.web.entity.TagEntity;
 import com.fzu.demo.web.entity.UserEntity;
+import com.fzu.demo.web.service.ICommendService;
 import com.fzu.demo.web.service.IGameService;
 import com.fzu.demo.web.service.ITagService;
 import com.fzu.demo.web.service.IUserService;
@@ -41,6 +43,9 @@ public class IndexController {
     @Autowired
     private IGameService gameService;
 
+    @Autowired
+    private ICommendService commendService;
+
     @RequestMapping(value = "/")
     public String initLogin(HttpServletRequest request) {
         return "login";
@@ -64,7 +69,7 @@ public class IndexController {
             }
         }
         if ("admin".equals(username)) {
-            result.setCodeAndNote(JSONResult.KEY_CODE_SUCCESS,"admin");
+            result.setCodeAndNote(JSONResult.KEY_CODE_SUCCESS, "admin");
             session.setAttribute(XGameConstant.LOGIN_SESSION_KEY, new UserEntity(99, "admin", "admin", "man", null, null, null));
 
         }
@@ -92,6 +97,7 @@ public class IndexController {
                 UserEntity newUser = new UserEntity(username, nickname, sex, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
                 userService.insert(newUser);
                 tagService.updateUserTags(userService.getUserByUsername(username).getId(), tagEntities);
+                commendService.produceRecommendList(newUser.getId());
                 result.setNote(ResultEnum.SUCCESS.getMessage());
             } catch (Exception e) {
                 result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
@@ -140,6 +146,11 @@ public class IndexController {
         return "history/loginHistory";
     }
 
+    @RequestMapping(value = "/commend")
+    public String commend() {
+        return "/commend/commend";
+    }
+
     @RequestMapping(value = "/logout")
     @ResponseBody
     public JSONObject logout(HttpServletRequest request) {
@@ -162,7 +173,25 @@ public class IndexController {
         result.set("purchaseNumber", purchaseNumber);
         result.set("starNumber", starNumber);
         return result.getJSON();
+    }
 
+    @RequestMapping("search")
+    public String search(HttpServletRequest request, String keyword) {
+        request.setAttribute("keyword", keyword);
+        return "/myGames/search";
+    }
+
+    @RequestMapping("searchResult")
+    @ResponseBody
+    public JSONObject searchResult(HttpServletRequest request, String keyword) {
+        JSONResult result = JSONResult.build();
+        try {
+            List<GameEntity> games = gameService.getSearchResult(keyword);
+            result.set("games", games);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
     }
 
     @RequestMapping("icon")

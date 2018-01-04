@@ -111,11 +111,37 @@
         DELETE FROM gp_user_collect WHERE gameID = #{gameID};
     </delete>
 
-    <insert id="addGame" useGeneratedKeys="true" keyProperty="id"  parameterType="com.fzu.demo.web.entity.GameEntity">
+    <insert id="addGame" useGeneratedKeys="true" keyProperty="id" parameterType="com.fzu.demo.web.entity.GameEntity">
         INSERT INTO
         gp_game(name,description,price,image)
         VALUES
         (#{name} , #{description} , #{price} , #{image})
     </insert>
 
+    <delete id="deleteUserRecommendGames" parameterType="Map">
+        DELETE FROM
+        gp_commend
+        WHERE
+        userID = #{userID}
+    </delete>
+
+    <insert id="insertRecommendGames" parameterType="Map">
+        INSERT INTO gp_commend(userID,gameID,recommendIndex) values
+        <foreach collection="games" item="item" index="index" separator=",">
+            (#{userID} , #{item.id} , #{item.recommendIndex})
+        </foreach>
+    </insert>
+
+    <select id="getRecommendList" resultMap="gameMap">
+         select g.*,c.recommendIndex
+         from gp_game g,gp_commend c,gp_user u
+         where g.id = c.gameID and c.userID = u.id and u.id = #{userID}
+         order by c.recommendIndex desc
+    </select>
+
+    <select id="getSearchResult" resultMap="gameMap">
+        SELECT * FROM gp_game
+        WHERE
+        name like CONCAT('%',#{keyword},'%')
+    </select>
 </mapper>

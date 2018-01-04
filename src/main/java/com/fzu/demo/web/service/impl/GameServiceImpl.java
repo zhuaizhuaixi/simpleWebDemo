@@ -129,7 +129,12 @@ public class GameServiceImpl implements IGameService {
     }
 
     @Override
-    public Integer addGame(GameEntity game){
+    public Integer addGame(GameEntity game) {
         return gameMapper.addGame(game);
+    }
+
+    @Override
+    public List<GameEntity> getSearchResult(String keyword) {
+        return gameMapper.getSearchResult(keyword);
     }
 }

@@ -2,6 +2,7 @@ package com.fzu.demo.web.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zzx
@@ -23,6 +24,8 @@ public class UserEntity implements Serializable {
 	private String password;
 
 	private byte[] photo;
+
+	private List<GameEntity> games;
 
 	public Integer getId() {
 		return id;
@@ -78,6 +81,14 @@ public class UserEntity implements Serializable {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+
+	public List<GameEntity> getGames() {
+		return games;
+	}
+
+	public void setGames(List<GameEntity> games) {
+		this.games = games;
 	}
 
 	public UserEntity() {

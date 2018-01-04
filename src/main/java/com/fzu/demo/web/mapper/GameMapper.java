@@ -146,4 +146,35 @@ public interface GameMapper {
      * @return 游戏ID
      */
     Integer addGame(GameEntity gameEntity);
+
+    /**
+     * 删除该用户所有的推荐列表
+     *
+     * @param userID 用户ID
+     */
+    void deleteUserRecommendGames(@Param("userID") Integer userID);
+
+    /**
+     * 将推荐游戏插入推荐游戏表
+     *
+     * @param userID 用户ID
+     * @param games  游戏列表
+     */
+    void insertRecommendGames(@Param("userID") Integer userID, @Param("games") List<GameEntity> games);
+
+    /**
+     * 获得推荐列表
+     *
+     * @param userID 用户ID
+     * @return 推荐列表
+     */
+    List<GameEntity> getRecommendList(@Param("userID") Integer userID);
+
+    /**
+     * 通过关键字查找
+     *
+     * @param keyword 关键字
+     * @return 查找列表
+     */
+    List<GameEntity> getSearchResult(@Param("keyword") String keyword);
 }

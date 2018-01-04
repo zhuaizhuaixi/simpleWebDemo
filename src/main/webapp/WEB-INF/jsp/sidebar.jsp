@@ -14,10 +14,10 @@
                         <option>${sessionScope.xgame.nickname}</option>
                     </div>
                 </div>
-                <div class="select-mask mt-10">
+                <%--<div class="select-mask mt-10">
                     <i id="statusPoint" class="icon icon-yuandian " style="color: gold"></i>
                     <span id="status" class="select-state">超级会员</span>
-                </div>
+                </div>--%>
             </div>
             <div class="user-massage">
                 <div class="massage-list">
@@ -43,7 +43,7 @@
                 <span class="glyphicon glyphicon-glyphicon glyphicon-cog" style="color: grey"></span>
                 <span>个人信息管理</span></a>
             </li>
-            <li class="treeview font18"><a href="#">
+            <li class="treeview font18"><a href="#" onclick="goPage('/commend')">
                 <span class="glyphicon glyphicon-list-alt" style="color: blue"></span>
                 <span>我的游戏推荐</span></a>
             </li>

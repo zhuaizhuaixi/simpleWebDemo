@@ -141,4 +141,12 @@ public interface IGameService {
      * @return 游戏ID
      */
     Integer addGame(GameEntity game);
+
+    /**
+     * 通过关键字查找游戏
+     *
+     * @param keyword 关键字
+     * @return 游戏列表
+     */
+    List<GameEntity> getSearchResult(String keyword);
 }

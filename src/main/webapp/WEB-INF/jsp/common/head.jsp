@@ -25,7 +25,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/js/common/bootstrap-3.3.7/css/bootstrap.css?v=${applicationScope.version}"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/js/common/bootstrap-3.3.7/css/bootstrap-theme.css?v=${applicationScope.version}"/>
 <link rel="stylesheet" href="${ctx}/css/AdminLTE.css?v=${applicationScope.version}">
-<link rel="stylesheet" href="${ctx}/css/style.css?v=23333333">
+<link rel="stylesheet" href="${ctx}/css/style.css?v=${applicationScope.version}">
 <link rel="stylesheet" href="${ctx}/css/skin-blue.css?v=${applicationScope.version}">
 <link rel="stylesheet" href="${ctx}/css/iconfont.css?v=${applicationScope.version}">
 

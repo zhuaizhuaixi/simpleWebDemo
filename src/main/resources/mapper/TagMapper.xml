@@ -71,7 +71,6 @@
         gp_tag(name)
          VALUES
         (#{tagName})
-
     </insert>
 
 </mapper>

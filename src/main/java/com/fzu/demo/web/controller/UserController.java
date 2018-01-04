@@ -8,6 +8,7 @@ import com.fzu.demo.enums.ResultEnum;
 import com.fzu.demo.web.entity.HistoryEntity;
 import com.fzu.demo.web.entity.TagEntity;
 import com.fzu.demo.web.entity.UserEntity;
+import com.fzu.demo.web.service.ICommendService;
 import com.fzu.demo.web.service.ITagService;
 import com.fzu.demo.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     private ITagService tagService;
+
+    @Autowired
+    private ICommendService commendService;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -171,6 +175,7 @@ public class UserController {
             tags.add(tagService.getTagByName(tagName));
         }
         tagService.updateUserTags(userID, tags);
+        commendService.produceRecommendList(userID);
         return result.getJSON();
     }
 
