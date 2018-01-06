@@ -1,14 +1,18 @@
 package com.fzu.demo.web.service.impl;
 
+import com.fzu.demo.web.entity.GameEntity;
 import com.fzu.demo.web.entity.TagEntity;
+import com.fzu.demo.web.mapper.GameMapper;
 import com.fzu.demo.web.mapper.TagMapper;
 import com.fzu.demo.web.service.ITagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
+ * @author zzx
  * Created by zzx on 2017/12/12.
  */
 @Service
@@ -16,6 +20,9 @@ public class TagServiceImpl implements ITagService {
 
     @Autowired
     private TagMapper tagMapper;
+
+    @Autowired
+    private GameMapper gameMapper;
 
     @Override
     public List<TagEntity> getAllTags() {
@@ -44,7 +51,7 @@ public class TagServiceImpl implements ITagService {
     }
 
     @Override
-    public void updateGameTags(Integer gameID, List<TagEntity> tags){
+    public void updateGameTags(Integer gameID, List<TagEntity> tags) {
         tagMapper.deleteAllGameTags(gameID);
         tagMapper.insertGameTags(tags, gameID);
     }
@@ -62,5 +69,20 @@ public class TagServiceImpl implements ITagService {
     @Override
     public void insertTag(String tagName) {
         tagMapper.insertTag(tagName);
+    }
+
+    @Override
+    public Map<String, Integer> getTagPercentage(Integer userID) {
+        Map<String, Integer> map = new TreeMap<>();
+        List<GameEntity> games = gameMapper.getMyGames(userID, 0, 10000);
+        for (GameEntity game : games) {
+            List<TagEntity> tags = tagMapper.getGameTags(game.getId());
+            for (TagEntity tag : tags) {
+                String tagName = tag.getName();
+                map.merge(tagName, 1, (a, b) -> a + b);
+            }
+        }
+
+        return map;
     }
 }

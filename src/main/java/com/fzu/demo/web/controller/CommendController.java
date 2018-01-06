@@ -41,4 +41,60 @@ public class CommendController {
         return result.getJSON();
     }
 
+    @RequestMapping("/cosSimilarBaseOnContent")
+    @ResponseBody
+    public JSONObject cosSimilarBaseOnContent(HttpServletRequest request) {
+        JSONResult result = JSONResult.build();
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
+        try {
+            commendService.cosSimilarBaseOnContent(userID);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
+
+    @RequestMapping("/jaccardSimilarBaseOnContent")
+    @ResponseBody
+    public JSONObject jaccardSimilarBaseOnContent(HttpServletRequest request) {
+        JSONResult result = JSONResult.build();
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
+        try {
+            commendService.jaccardSimilarBaseOnContent(userID);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
+
+    @RequestMapping("/cosSimilarBaseOnFiltering")
+    @ResponseBody
+    public JSONObject cosSimilarBaseOnFiltering(HttpServletRequest request) {
+        JSONResult result = JSONResult.build();
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
+        try {
+            commendService.cosSimilarBaseOnFiltering(userID);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
+
+    @RequestMapping("/jaccardSimilarBaseOnFiltering")
+    @ResponseBody
+    public JSONObject jaccardSimilarBaseOnFiltering(HttpServletRequest request) {
+        JSONResult result = JSONResult.build();
+        HttpSession session = request.getSession();
+        Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
+        try {
+            commendService.jaccardSimilarBaseOnFiltering(userID);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
+
 }

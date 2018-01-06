@@ -144,4 +144,24 @@
         WHERE
         name like CONCAT('%',#{keyword},'%')
     </select>
+
+    <select id="getMyRecentGames" resultMap="gameMap">
+        SELECT g.*
+        FROM gp_game g,gp_purchase p,gp_user u
+        WHERE
+        g.id=p.gameID AND p.userID=u.id AND u.id=#{userID}
+        AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt; date(p.date)
+        ORDER BY p.date desc
+        LIMIT 0,#{limit}
+    </select>
+
+    <select id="getRecentGames" resultMap="gameMap">
+        SELECT g.*,p.date
+        FROM gp_game g,gp_purchase p,gp_user u
+        WHERE
+        g.id=p.gameID AND p.userID=u.id AND u.id=#{userID}
+        AND
+        p.date BETWEEN #{startTime} and #{endTime};
+    </select>
+
 </mapper>

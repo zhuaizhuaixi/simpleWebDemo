@@ -11,34 +11,53 @@
     <link rel="stylesheet" href="${ctx}/js/common/element/index.css">
 </head>
 <body style="margin: 0 auto;">
+<div class="page-header" style="margin: 4px 0 0;padding:0">
+    <ul id="myTabs" class="nav nav-tabs" >
+        <li class="active"><a href="#icon" id="profile-tab"><span class="glyphicon glyphicon-th-large"></span></a></li>
 
-<div id="app" style="width: 90%;margin:  auto;text-align: center">
-    <template>
-        <el-table :data="games" border style="width: 100%">
-            <el-table-column prop="name" label="游戏名" width="300"></el-table-column>
-            <el-table-column prop="price" label="价格"></el-table-column>
-            <el-table-column label="操作">
-                <template scope="scope">
-                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看详情</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-col :span="24" class="toolbar">
-            <el-pagination layout="total,prev, pager, next,jumper "
-                           @current-change="function(val){handleCurrentChange(val,'asdf');}"
-                           :page-size="15" :total="total"
-                           style="float:right;">
-            </el-pagination>
-        </el-col>
-    </template>
+        <li><a href="#table" id="home-tab"><span class="glyphicon glyphicon-align-justify"></span></a>
+        </li>
+    </ul>
+</div>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade " id="table">
+        <div  style="margin:  auto;text-align: center">
+            <template>
+                <el-table :data="games" border style="width: 100%">
+                    <el-table-column prop="name" label="游戏名" width="300"></el-table-column>
+                    <el-table-column prop="price" label="价格"></el-table-column>
+                    <el-table-column label="操作">
+                        <template scope="scope">
+                            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看详情</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+            </template>
+        </div>
+    </div>
+    <div class="tab-pane fade in active" id="icon">
+
+    </div>
+    <el-col :span="24" class="toolbar">
+        <el-pagination layout="total,prev, pager, next,jumper "
+                       @current-change="function(val){handleCurrentChange(val,'asdf');}"
+                       :page-size="15" :total="total"
+                       style="float:right;">
+        </el-pagination>
+    </el-col>
 </div>
 </body>
 <script type="text/javascript">
 
+    $('#myTabs a').click(function (e) {
+        $(this).tab('show');
+    });
+
     var pageSize = 15;
 
     var config = {
-        el: '#app',
+        el: '#myTabContent',
         data: {
             games: [],
             total: 0,
@@ -69,6 +88,7 @@
                     success: function (data) {
                         if (data != null && data.code == 1) {
                             config.data.games = data.games;
+                            produceIcon(data.games);
                         } else {
                             layer.alert(data.note);
                         }
@@ -76,7 +96,7 @@
                 });
             }
         },
-        mounted:function () {
+        mounted: function () {
             config.methods.getData(1, pageSize);
         }
     };
@@ -99,6 +119,33 @@
                     layer.alert(data.note);
                 }
             }
+        });
+    }
+
+    function produceIcon(games) {
+        $("#icon").empty();
+        for (var i = 0; i < games.length; i++) {
+            var iconStr = '<div class="box box-default color-palette-box mt-20 box-body col-xs-3" style="width:33%;margin: 1px;">' +
+                ' <img src="' + games[i].image + '" gameID="' + games[i].id + '" class="game-img" style="width:100%;height:250px;cursor: pointer"/> ' +
+                '<h3>' + games[i].name + '</h3> </div>'
+            $("#icon").append(iconStr);
+        }
+
+        $(".game-img").click(function (event) {
+            viewGameDetail("", $(this).attr('gameID'))
+        });
+    }
+
+    function viewGameDetail(name, id) {
+        parent.layer.open({
+            type: 2,
+            title: name + "游戏详情",
+            closeBtn: 1, //不显示关闭按钮
+            fixed: false, //不固定
+            maxmin: true, //开启最大化最小化按钮
+            area: ['90%', '90%'],
+            shadeClose: true,
+            content: ctx + '/homepage/game?id=' + id
         });
     }
 </script>

@@ -16,4 +16,6 @@ public class XGameConstant {
 
     public static final Integer VISIT_HISTORY = 3;
 
+    public static final Integer RECOMMEND_STRATEGY_CHANGE_THRESHOLD = 3;
+
 }

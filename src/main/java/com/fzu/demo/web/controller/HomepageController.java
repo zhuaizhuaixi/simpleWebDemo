@@ -98,7 +98,6 @@ public class HomepageController {
                 gameService.buyGame(userID, gameID);
                 result.setNote(ResultEnum.PURCHASE_SUCCESS.getMessage());
             }
-
         } catch (Exception e) {
             result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
         }

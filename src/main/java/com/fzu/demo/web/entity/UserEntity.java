@@ -110,4 +110,17 @@ public class UserEntity implements Serializable {
 		this.sex = sex;
 		this.password = password;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return getClass() == obj.getClass() && this.getId().equals(((UserEntity) obj).getId());
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = result * 31 + username.hashCode();
+		result = result * 31 + id;
+		return result;
+	}
 }

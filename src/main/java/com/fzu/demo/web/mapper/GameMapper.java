@@ -177,4 +177,22 @@ public interface GameMapper {
      * @return 查找列表
      */
     List<GameEntity> getSearchResult(@Param("keyword") String keyword);
+
+    /**
+     * 获得最近购买游戏
+     *
+     * @param userID 用户ID
+     * @param limit  结束索引
+     * @return 我的游戏列表
+     */
+    List<GameEntity> getMyRecentGames(@Param("userID") Integer userID, @Param("limit") Integer limit);
+
+    /**
+     * 获得最近的购买游戏
+     * @param userID 用户ID
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 游戏列表
+     */
+    List<GameEntity> getRecentGames(@Param("userID") Integer userID, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }

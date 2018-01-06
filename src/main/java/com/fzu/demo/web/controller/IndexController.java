@@ -8,6 +8,7 @@ import com.fzu.demo.enums.ResultEnum;
 import com.fzu.demo.web.entity.GameEntity;
 import com.fzu.demo.web.entity.TagEntity;
 import com.fzu.demo.web.entity.UserEntity;
+import com.fzu.demo.web.mapper.TagMapper;
 import com.fzu.demo.web.service.ICommendService;
 import com.fzu.demo.web.service.IGameService;
 import com.fzu.demo.web.service.ITagService;
@@ -97,7 +98,7 @@ public class IndexController {
                 UserEntity newUser = new UserEntity(username, nickname, sex, Md5Util.sign(password + XGameConstant.PASSWORD_KEY));
                 userService.insert(newUser);
                 tagService.updateUserTags(userService.getUserByUsername(username).getId(), tagEntities);
-                commendService.produceRecommendList(newUser.getId());
+                commendService.produceRecommendList(newUser.getId(), tagService.getUserTags(newUser.getId()));
                 result.setNote(ResultEnum.SUCCESS.getMessage());
             } catch (Exception e) {
                 result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
@@ -129,6 +130,11 @@ public class IndexController {
     @RequestMapping(value = "/userInfo")
     public String userInfo() {
         return "userInfo/index";
+    }
+
+    @RequestMapping(value = "/dataAnalyse")
+    public String dataAnalyse() {
+        return "dataAnalyse/analysisView";
     }
 
     @RequestMapping(value = "/purchaseHistory")

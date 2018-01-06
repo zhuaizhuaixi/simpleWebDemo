@@ -43,6 +43,10 @@
                 <span class="glyphicon glyphicon-glyphicon glyphicon-cog" style="color: grey"></span>
                 <span>个人信息管理</span></a>
             </li>
+            <li class="treeview font18"><a href="#" onclick="goPage('/dataAnalyse')">
+                <span class="glyphicon glyphicon-cloud" style="color: white"></span>
+                <span>我的数据分析</span></a>
+            </li>
             <li class="treeview font18"><a href="#" onclick="goPage('/commend')">
                 <span class="glyphicon glyphicon-list-alt" style="color: blue"></span>
                 <span>我的游戏推荐</span></a>

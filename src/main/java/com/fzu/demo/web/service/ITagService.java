@@ -3,6 +3,7 @@ package com.fzu.demo.web.service;
 import com.fzu.demo.web.entity.TagEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zzx
@@ -78,4 +79,11 @@ public interface ITagService {
      * @param tagName 标签名
      */
     void insertTag(String tagName);
+
+    /**
+     * 获得用户购买游戏中标签占得个数
+     * @param userID 用户ID
+     * @return <标签,个数>的map
+     */
+    Map<String, Integer> getTagPercentage(Integer userID);
 }

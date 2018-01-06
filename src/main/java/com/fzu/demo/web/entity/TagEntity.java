@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author zzx
  */
-public class TagEntity implements Serializable{
+public class TagEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,5 +34,18 @@ public class TagEntity implements Serializable{
 
     public TagEntity(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return getClass() == obj.getClass() && this.getId().equals(((TagEntity) obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = result * 31 + name.hashCode();
+        result = result * 31 + id;
+        return result;
     }
 }

@@ -153,7 +153,7 @@ public class UserController {
 
     @RequestMapping("/gameTags")
     @ResponseBody
-    public JSONObject gameTags(HttpServletRequest request,Integer gameID) {
+    public JSONObject gameTags(HttpServletRequest request, Integer gameID) {
         JSONResult result = JSONResult.build();
         List<String> tagsValue = new ArrayList<>(40);
         List<TagEntity> tags = tagService.getGameTags(gameID);
@@ -175,7 +175,7 @@ public class UserController {
             tags.add(tagService.getTagByName(tagName));
         }
         tagService.updateUserTags(userID, tags);
-        commendService.produceRecommendList(userID);
+        commendService.produceRecommendList(userID, tagService.getUserTags(userID));
         return result.getJSON();
     }
 

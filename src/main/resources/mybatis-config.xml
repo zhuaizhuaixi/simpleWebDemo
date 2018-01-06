@@ -3,7 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
     <typeAliases>
         <typeAlias alias="Integer" type="java.lang.Integer" />
         <typeAlias alias="Long" type="java.lang.Long" />
@@ -13,4 +15,5 @@
         <typeAlias alias="LinkedList" type="java.util.LinkedList" />
         <typeAlias type="com.fzu.demo.web.entity.UserEntity" alias="UserEntity"/>
     </typeAliases>
+
 </configuration>

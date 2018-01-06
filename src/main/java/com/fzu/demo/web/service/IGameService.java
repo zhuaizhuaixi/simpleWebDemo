@@ -52,6 +52,13 @@ public interface IGameService {
     void buyGame(Integer userID, Integer gameID);
 
     /**
+     * 生成推荐列表（包括最近购买的物品）
+     *
+     * @param userID 用户ID
+     */
+    void produceRecentRecommendList(Integer userID);
+
+    /**
      * 退购游戏
      *
      * @param userID 用户ID
@@ -149,4 +156,11 @@ public interface IGameService {
      * @return 游戏列表
      */
     List<GameEntity> getSearchResult(String keyword);
+
+    /**
+     * 获得最近x天购买的游戏
+     * @param userID 用户ID
+     * @return 游戏列表
+     */
+    List<GameEntity> getRecentGames(Integer userID) throws Exception;
 }

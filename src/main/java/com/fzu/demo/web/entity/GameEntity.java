@@ -5,7 +5,9 @@ package com.fzu.demo.web.entity;
  */
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -14,6 +16,8 @@ import java.util.HashMap;
 public class GameEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     private Integer id;
 
@@ -28,6 +32,8 @@ public class GameEntity implements Serializable {
     private String tags;
 
     private Double recommendIndex;
+
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -85,6 +91,14 @@ public class GameEntity implements Serializable {
         this.recommendIndex = recommendIndex;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public GameEntity() {
     }
 
@@ -101,5 +115,18 @@ public class GameEntity implements Serializable {
         this.description = description;
         this.image = image;
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return getClass() == obj.getClass() && this.getId().equals(((GameEntity) obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = result * 31 + name.hashCode();
+        result = result * 31 + id;
+        return result;
     }
 }

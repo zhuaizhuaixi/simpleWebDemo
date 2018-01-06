@@ -526,7 +526,7 @@ button, input:not([type="radio"]):not([type="checkbox"]), select {
 }
 
 .smal-btn.info-option {
-    margin: 0 0 0 30px;
+    margin: 0 0 0 20px;
 }
 
 .game-star-button {
