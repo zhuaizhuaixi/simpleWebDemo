@@ -31,6 +31,10 @@
             </div>
         </div>
         <ul class="sidebar-menu">
+            <li class="treeview font18"><a href="#" onclick="goPage('/homepage/index')">
+                <span class="glyphicon glyphicon-shopping-cart" style="color: red"></span>
+                <span>游戏商城</span></a>
+            </li>
             <li class="treeview font18"><a href="#" onclick="goPage('/myGames')">
                 <span class="glyphicon glyphicon-user" style="color: green"></span>
                 <span>我的游戏</span></a>

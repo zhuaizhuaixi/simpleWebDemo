@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zzx
@@ -189,10 +190,24 @@ public interface GameMapper {
 
     /**
      * 获得最近的购买游戏
-     * @param userID 用户ID
+     *
+     * @param userID    用户ID
      * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param endTime   结束时间
      * @return 游戏列表
      */
     List<GameEntity> getRecentGames(@Param("userID") Integer userID, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    /**
+     * 随机获得5个游戏
+     *
+     * @return 游戏列表
+     */
+    List<GameEntity> getRandomGames();
+
+    /**
+     * 获得前10游戏销量
+     * @return <游戏名,销售量>列表
+     */
+    List<Map<String, Object>> getGameSale();
 }

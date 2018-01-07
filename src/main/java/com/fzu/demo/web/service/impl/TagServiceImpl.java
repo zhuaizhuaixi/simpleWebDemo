@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 /**
  * @author zzx
- * Created by zzx on 2017/12/12.
+ *         Created by zzx on 2017/12/12.
  */
 @Service
 public class TagServiceImpl implements ITagService {
@@ -82,7 +82,11 @@ public class TagServiceImpl implements ITagService {
                 map.merge(tagName, 1, (a, b) -> a + b);
             }
         }
-
         return map;
+    }
+
+    @Override
+    public List<Map<String, Object>> getPopularTags() {
+        return tagMapper.getPopularTags();
     }
 }

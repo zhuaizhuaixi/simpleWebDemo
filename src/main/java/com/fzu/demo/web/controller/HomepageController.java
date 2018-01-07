@@ -74,7 +74,7 @@ public class HomepageController {
         Integer userID = ((UserEntity) session.getAttribute(XGameConstant.LOGIN_SESSION_KEY)).getId();
 
         JSONResult result = JSONResult.build();
-        GameEntity game = gameService.getGameById(userID,id);
+        GameEntity game = gameService.getGameById(userID, id);
         List<TagEntity> tags = tagService.getGameTags(id);
         boolean hasPurchased = gameService.hasPurchasedGame(userID, id);
         boolean hasStared = gameService.hasStaredGame(userID, id);
@@ -153,5 +153,17 @@ public class HomepageController {
         return result.getJSON();
     }
 
+    @RequestMapping("/randomGames")
+    @ResponseBody
+    public JSONObject randomGames() {
+        JSONResult result = JSONResult.build();
+        try {
+            List<GameEntity> games = gameService.getRandomGames();
+            result.set("games", games);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
 
 }

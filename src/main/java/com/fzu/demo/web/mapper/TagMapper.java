@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zzx
@@ -87,4 +88,11 @@ public interface TagMapper {
      * @param tagName 标签名
      */
     void insertTag(@Param("tagName") String tagName);
+
+    /**
+     * 获得最受欢迎的前5个标签及其售出数量
+     *
+     * @return <标签名,销售量>列表
+     */
+    List<Map<String, Object>> getPopularTags();
 }

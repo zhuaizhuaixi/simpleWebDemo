@@ -86,4 +86,11 @@ public interface ITagService {
      * @return <标签,个数>的map
      */
     Map<String, Integer> getTagPercentage(Integer userID);
+
+    /**
+     * 获得销量前五的标签
+     *
+     * @return <标签,销量>列表
+     */
+    List<Map<String, Object>> getPopularTags();
 }

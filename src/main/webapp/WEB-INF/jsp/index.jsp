@@ -12,7 +12,7 @@
 <%@ include file="menu.jsp" %>
 <%@ include file="sidebar.jsp" %>
 <div style="margin-left:230px;" id="page-iframes">
-    <iframe id="centerFrame" name="centerFrame" class="page-iframe" width="100%" height="100%" src="/homepage/index"
+    <iframe id="centerFrame" name="centerFrame" class="page-iframe" width="100%" height="100%" src="/systemView"
             frameborder="0"></iframe>
 </div>
 </body>

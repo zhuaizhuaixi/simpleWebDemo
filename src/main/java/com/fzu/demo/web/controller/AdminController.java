@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zzx
@@ -144,6 +145,33 @@ public class AdminController {
         try {
             tagService.insertTag(tagName);
             result.setNote(ResultEnum.ADD_TAG_SUCCESS.getMessage());
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
+
+    @RequestMapping("/gameSale")
+    @ResponseBody
+    public JSONObject gameSale() {
+        JSONResult result = JSONResult.build();
+        try {
+            List<Map<String, Object>> list = gameService.getGameSale();
+            result.set("list", list);
+        } catch (Exception e) {
+            result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
+        }
+        return result.getJSON();
+    }
+
+    @RequestMapping("/popularTags")
+    @ResponseBody
+    public JSONObject popularTags() {
+        JSONResult result = JSONResult.build();
+        try {
+            List<Map<String, Object>> list = tagService.getPopularTags();
+            result.set("list", list);
+            result.set("max", list.get(0).get("sale"));
         } catch (Exception e) {
             result.setCodeAndNote(JSONResult.KEY_CODE_FAIL, e.getMessage());
         }

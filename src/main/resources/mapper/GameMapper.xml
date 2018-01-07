@@ -164,4 +164,19 @@
         p.date BETWEEN #{startTime} and #{endTime};
     </select>
 
+    <select id="getRandomGames" resultMap="gameMap">
+        select *
+        from gp_game
+        order by rand() LIMIT 0,5;
+    </select>
+
+    <select id="getGameSale" resultType="Map">
+        select g.name,count(*) as sale
+        from  gp_game g ,gp_purchase p ,gp_user u
+        where g.id = p.gameID and u.id = p.userID
+        group by g.id
+        ORDER BY sale desc
+        LIMIT 0,10
+    </select>
+
 </mapper>

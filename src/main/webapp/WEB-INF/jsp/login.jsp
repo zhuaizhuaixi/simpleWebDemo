@@ -7,6 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="${ctx}/js/common/vue.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/common/element/index.js"></script>
+    <link rel="stylesheet" href="${ctx}/js/common/element/index.css">
 </head>
 <body>
 
@@ -19,12 +22,11 @@
         <button class="smal-btn" type="submit" style="margin: 40px 5px;text-align: center;width:40%" onclick="login()">登录</button>
         <button class="smal-btn" type="submit" style="margin: 40px 5px;text-align: center;width:40%" onclick="initRegister()">注册</button>
     </div>
+
 </div> <!-- /container -->
 
 </body>
 <script>
-    $(function () {
-    });
 
     function login() {
         $.ajax({

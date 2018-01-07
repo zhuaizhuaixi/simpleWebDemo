@@ -117,6 +117,11 @@ public class IndexController {
         return "admin";
     }
 
+    @RequestMapping("/systemView")
+    public String systemView() {
+        return "/systemView/generalView";
+    }
+
     @RequestMapping("/myGames")
     public String myGames() {
         return "/myGames/games";

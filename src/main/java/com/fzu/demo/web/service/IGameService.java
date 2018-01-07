@@ -3,6 +3,7 @@ package com.fzu.demo.web.service;
 import com.fzu.demo.web.entity.GameEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zzx
@@ -159,8 +160,24 @@ public interface IGameService {
 
     /**
      * 获得最近x天购买的游戏
+     *
      * @param userID 用户ID
      * @return 游戏列表
+     * @throws Exception 日期格式转换时出现异常
      */
     List<GameEntity> getRecentGames(Integer userID) throws Exception;
+
+    /**
+     * 随机获得五个游戏
+     *
+     * @return 游戏列表
+     */
+    List<GameEntity> getRandomGames();
+
+    /**
+     * 获得游戏及其销量
+     *
+     * @return <游戏名,销量>列表
+     */
+    List<Map<String, Object>> getGameSale();
 }

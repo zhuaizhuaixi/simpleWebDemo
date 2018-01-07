@@ -181,4 +181,14 @@ public class GameServiceImpl implements IGameService {
         date.set(Calendar.DATE, date.get(Calendar.DATE) - 15);
         return gameMapper.getRecentGames(userID, df.parse(df.format(date.getTime())), currentDate);
     }
+
+    @Override
+    public List<GameEntity> getRandomGames() {
+        return gameMapper.getRandomGames();
+    }
+
+    @Override
+    public List<Map<String, Object>> getGameSale(){
+        return gameMapper.getGameSale();
+    }
 }

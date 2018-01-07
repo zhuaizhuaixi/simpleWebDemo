@@ -17,8 +17,12 @@
 
     <div>
         <ul id="myTabs" class="nav nav-tabs">
-            <li class="active"><a href="#home" id="home-tab">游戏管理</a></li>
+            <li class="active"><a href="#analyse" id="analyse-tab">数据分析</a></li>
+            <li><a href="#home" id="home-tab">游戏管理</a></li>
             <li><a href="#profile" id="profile-tab">标签管理</a></li>
+            <button type="button" class="smal-btn pull-right" style="padding:5px 20px;margin:5px 15px"
+                    onclick="logout()">返回登录界面
+            </button>
             <button type="button" class="smal-btn pull-right" style="padding:5px 20px;margin:5px 15px"
                     onclick="addGame()">新增游戏
             </button>
@@ -28,7 +32,39 @@
 
         </ul>
         <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="home">
+            <div class="tab-pane fade in active" id="analyse">
+                <div class="col-md-12" style="padding:0">
+                    <!-- Line chart -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <h3 class="box-title">游戏销量排行榜</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <div id="gameSale" style="height:400px; width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.box-body-->
+                    </div>
+                </div>
+                <div class="col-md-12" style="padding:0">
+                    <!-- Line chart -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <h3 class="box-title">最受欢迎的游戏类型</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="chart">
+                                <div id="popularTags" style="height:400px; width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- /.box-body-->
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="home">
                 <div id="app" style="margin:  auto;">
                     <template>
                         <el-table :data="games" border style="width: 100%">
@@ -194,11 +230,29 @@
     };
 
     $(function () {
+        initGameSale();
+        initPopularTags();
         new Vue(config);
         new Vue(tagConfig);
         getAllGames();
         getAllTags();
     });
+
+    function logout() {
+        $.ajax({
+            url: ctx + "/logout",
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data != null && data.code == 1) {
+                    window.location.href = "/";
+                } else {
+                    layer.alert(data.note);
+                }
+            }
+        });
+    }
 
     function getAllGames() {
         $.ajax({
@@ -255,6 +309,118 @@
             area: ['300px', '150px'],
             content: ctx + '/admin/newTag'
         });
+    }
+
+    function initGameSale() {
+        var gameSaleChart = echarts.init($("#gameSale")[0]);
+        var gameSaleOption = {
+            color: ['#3398DB'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: [],
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '购买量',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: []
+                }
+            ]
+        };
+
+        $.ajax({
+            url: "/admin/gameSale",
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data != null && data.code == 1) {
+                    var list = data.list;
+                    for (var index in list) {
+                        var obj = list[index];
+                        gameSaleOption.xAxis[0].data.push(obj["name"]);
+                        gameSaleOption.series[0].data.push(obj["sale"]);
+                    }
+                    gameSaleChart.setOption(gameSaleOption);
+                } else {
+                    layer.alert(data.note);
+                }
+            }
+        });
+    }
+
+    function initPopularTags() {
+        var popularTagsChart = echarts.init($("#popularTags")[0]);
+        var popularTagsOption = {
+            tooltip: {},
+            radar: {
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: []
+            },
+            series: [{
+                type: 'radar',
+                areaStyle: {normal: {}},
+                data: [
+                    {
+                        value: [],
+                        name: '各类型游戏销量'
+                    }
+                ]
+            }]
+        };
+
+        $.ajax({
+            url: "/admin/popularTags",
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data != null && data.code == 1) {
+                    var max = data.max;
+                    for (var index in data.list) {
+                        var obj = new Object();
+                        obj["name"] = data.list[index]["name"];
+                        obj["max"] = max;
+                        popularTagsOption.series[0].data[0].value.push(data.list[index]["sale"]);
+                        popularTagsOption.radar.indicator.push(obj);
+                    }
+                    popularTagsChart.setOption(popularTagsOption);
+                } else {
+                    layer.alert(data.note);
+                }
+            }
+        });
+
     }
 </script>
 </html>

@@ -34,28 +34,7 @@ public class WebtestApplicationTests {
 
     @Test
     public void contextLoads() throws Exception {
-        Date beginDate = Date.from(Instant.now());
-        System.out.println(beginDate);
-        Calendar date = Calendar.getInstance();
-        date.setTime(beginDate);
-        date.set(Calendar.DATE, date.get(Calendar.DATE) - 2);
-        System.out.println(df.format(date.getTime()));
-
-        System.out.println((beginDate.getTime() - df.parse(df.format(date.getTime())).getTime()) / (1000 * 60 * 60 * 24));
-        System.out.println(1000 * 60 * 60 * 24);
-
-        int[] dataList = new int[15];
-        dataList[0]++;
-        System.out.println(dataList);
-
-       /* List<GameEntity> games = gameMapper.getRecentGames(1, df.parse(df.format(date.getTime())), beginDate);
-        System.out.println(games);
-        for (GameEntity game : games) {
-            System.out.println(game.getDate() +" 对比 "+df.parse(df.format(date.getTime())));
-            if (game.getDate() .equals( df.parse(df.format(date.getTime())))  ) {
-                System.out.println(game.getName()+" "+game.getDate());
-            }
-        }*/
+        System.out.println(gameMapper.getGameSale());
     }
 
 }

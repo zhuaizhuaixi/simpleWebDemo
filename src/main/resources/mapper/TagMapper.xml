@@ -73,4 +73,13 @@
         (#{tagName})
     </insert>
 
+    <select id="getPopularTags" resultType="Map">
+        select t.name,count(*) as sale
+        from  gp_game g ,gp_purchase p ,gp_user u,gp_tag t,gp_game_tag gt
+        where g.id = p.gameID and u.id = p.userID and t.id = gt.tagID and gt.gameID = g.id
+        group by t.id
+        ORDER BY sale desc
+        LIMIT 0,5
+    </select>
+
 </mapper>

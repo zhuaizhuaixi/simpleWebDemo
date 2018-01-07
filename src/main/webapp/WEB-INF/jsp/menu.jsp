@@ -2,7 +2,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper wrapper-main" style="overflow:visible" id="menu">
     <header class="main-header header-item">
-        <a href="#" class="logo" onclick="goPage('/homepage/index')">
+        <a href="#" class="logo" onclick="goPage('/systemView')">
             <span class="logo-lg">
                 <span class="glyphicon glyphicon-fire" style="color: gold"></span>
                 GamePlatform
