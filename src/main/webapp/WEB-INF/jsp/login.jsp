@@ -16,17 +16,53 @@
 <div class="container">
 
     <div class="form-signin" style="width: 50%;margin: 0 auto;padding: 50px 0 0 0;text-align: center">
-        <h2 class="form-signin-heading" style="text-align: center">Xgame</h2>
+        <h2 class="form-signin-heading" style="text-align: center">XX游戏平台</h2>
         <input type="text" id="username" class="form-control" placeholder="请输入用户名" required autofocus>
         <input type="password" id="password" class="form-control" placeholder="请输入密码" required>
         <button class="smal-btn" type="submit" style="margin: 40px 5px;text-align: center;width:40%" onclick="login()">登录</button>
         <button class="smal-btn" type="submit" style="margin: 40px 5px;text-align: center;width:40%" onclick="initRegister()">注册</button>
     </div>
-
+    <div id="app" style="padding:10px">
+        <template>
+            <el-carousel :interval="4000" type="card" height="260px">
+                <el-carousel-item v-for="item in items" :key="item">
+                    <image :src="item.image" :gameID="item.id" height="300px" style="width:100%"/>
+                </el-carousel-item>
+            </el-carousel>
+        </template>
+    </div>
 </div> <!-- /container -->
 
 </body>
-<script>
+<script type="text/javascript">
+
+    var config = {
+        el: "#app",
+        data: {
+            items: []
+        }
+    };
+
+    $(function () {
+        new Vue(config);
+        getRandomGames();
+    });
+
+    function getRandomGames() {
+        $.ajax({
+            url: "/homepage/randomGames",
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data != null && data.code == 1) {
+                    config.data.items = data.games;
+                } else {
+                    layer.alert(data.note);
+                }
+            }
+        });
+    }
 
     function login() {
         $.ajax({

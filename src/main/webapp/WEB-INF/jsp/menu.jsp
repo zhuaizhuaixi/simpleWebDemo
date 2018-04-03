@@ -5,7 +5,7 @@
         <a href="#" class="logo" onclick="goPage('/systemView')">
             <span class="logo-lg">
                 <span class="glyphicon glyphicon-fire" style="color: gold"></span>
-                GamePlatform
+                XX游戏平台
             </span>
         </a>
         <nav class="navbar navbar-static-top">

@@ -137,6 +137,7 @@
          from gp_game g,gp_commend c,gp_user u
          where g.id = c.gameID and c.userID = u.id and u.id = #{userID}
          order by c.recommendIndex desc
+         limit 0 ,10
     </select>
 
     <select id="getSearchResult" resultMap="gameMap">

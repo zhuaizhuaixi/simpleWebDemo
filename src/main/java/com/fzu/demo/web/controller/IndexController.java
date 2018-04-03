@@ -114,6 +114,8 @@ public class IndexController {
 
     @RequestMapping(value = "/admin")
     public String admin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute(XGameConstant.LOGIN_SESSION_KEY, new UserEntity(99, "admin", "admin", "man", null, null, null));
         return "admin";
     }
 

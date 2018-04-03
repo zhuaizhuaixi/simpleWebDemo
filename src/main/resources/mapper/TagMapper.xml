@@ -10,7 +10,7 @@
     </select>
 
     <select id="getUserTags" resultMap="tagMap">
-        SELECT *
+        SELECT t.*
         FROM gp_user_tag ut, gp_user u,gp_tag t
         WHERE
         ut.userID = u.id AND ut.tagID = t.id AND
@@ -18,7 +18,7 @@
     </select>
 
     <select id="getGameTags" resultMap="tagMap">
-        SELECT *
+        SELECT t.*
         FROM gp_tag t,gp_game_tag gt, gp_game g
         WHERE
         gt.gameID = g.id AND gt.tagID = t.id AND

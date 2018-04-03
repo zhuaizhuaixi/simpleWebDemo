@@ -66,9 +66,26 @@
 <script type="text/javascript">
 
     $(function () {
-        initTagPercentage();
-        initRecentGamePurchase();
-        initTagPreference();
+        $.ajax({
+            url: "/game/myGames?page=1&pageSize=1",
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data != null && data.code == 1) {
+                    if(data.myGames.length == 1) {
+                        initTagPercentage();
+                        initRecentGamePurchase();
+                        initTagPreference();
+                    }else {
+                        alert("您还未购买过游戏，无法查看数据分析");
+                    }
+                } else {
+                    layer.alert(data.note);
+                }
+            }
+        });
+
     });
 
     function initTagPercentage() {

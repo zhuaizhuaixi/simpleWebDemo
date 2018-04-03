@@ -22,12 +22,13 @@
                 <input id="gameName" class="form-control" style="max-width: 300px;">
             </div>
             <div class="input-group" style="padding:0 20px;margin:20px 0;">
-                <span class="input-group-addon" style="background-color: #00b4ef">游戏图片</span>
+                <span class="input-group-addon" style="background-color: #00b4ef;cursor: pointer"
+                      onclick="showPicture()">游戏图片</span>
                 <input id="gameImg" class="form-control" style="max-width: 300px;">
             </div>
             <div class="input-group" style="padding:0 20px;margin:20px 0;">
                 <span class="input-group-addon" style="background-color: #00b4ef">游戏价格</span>
-                <input id="gamePrice" class="form-control" style="max-width: 300px;">
+                <input type="number" id="gamePrice" class="form-control" style="max-width: 300px;">
             </div>
         </div>
         <div style="width:50%;float:right;text-align: center">
@@ -118,6 +119,19 @@
                 }
             });
         }
+    }
+
+    function showPicture() {
+        layer.open({
+            type: 1,
+            skin: 'layui-layer-demo', //样式类名
+            closeBtn: 0, //不显示关闭按钮
+            anim: 2,
+            title: '图片预览',
+            area: ['500px', '372px'],
+            shadeClose: true, //开启遮罩关闭
+            content: '<img src="' + $("#gameImg").val() + '" width="500px" height="330px"/>'
+        });
     }
 
 </script>

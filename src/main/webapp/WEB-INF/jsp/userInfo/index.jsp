@@ -30,7 +30,7 @@
     </div>
     <div class="input-group" style="padding: 10px 0">
         <span class="input-group-addon" style="background-color: #00b4ef">昵称</span>
-        <input type="text" class="form-control" id="nickname">
+        <input type="text" class="form-control" id="nickname" maxlength="10">
     </div>
     <div class="input-group" style="padding: 10px 0">
         <span class="input-group-addon" style="background-color: #00b4ef">性别</span>
@@ -121,7 +121,7 @@
             anim: 1,
             fixed: false, //不固定
             title: "修改头像",
-            area: ['380px', '130px'],
+            area: ['500px', '435px'],
             shadeClose: true, //开启遮罩关闭
             content: ctx + '/user/initChangePhoto'
         });
